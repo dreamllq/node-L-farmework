@@ -1,0 +1,40 @@
+<script type="text/html" id="t-confirm">
+    <div class="modal fade confirm">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></div>
+                    <h4 class="modal-title">警告</h4>
+                </div>
+                <div class="modal-body">
+                    [%= content %]
+                </div>
+                <div class="modal-footer">
+                    <div class="btn btn-default" data-dismiss="modal">取消</div>
+                    <div class="btn btn-warning save">确认</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    window.confirm = function (str, cb) {
+        var html = new EJS({element: "t-confirm"}).render({
+            content: str
+        });
+        var $html = $(html);
+        $("body").append($html);
+        $html.modal({backdrop: false});
+        $html.on("hidden.bs.modal", function () {
+            $html.remove();
+        });
+        $html.find(".modal-footer .save").on("click", function () {
+            cb();
+            $html.modal("hide");
+        });
+    }
+</script>
+
+
+

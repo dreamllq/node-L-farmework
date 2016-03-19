@@ -1,0 +1,40 @@
+@mixin font-bold {
+  font-family: "HY QIHEI50" !important;
+}
+
+@mixin font-boldest {
+  font-family: "HY QIHEI50" !important;
+  font-weight: bold;
+}
+
+@mixin font-normal {
+  font-family: "HY QIHEI35" !important;
+}
+
+@mixin font-normal-bold {
+  font-family: "HY QIHEI35" !important;
+  font-weight: bold;
+}
+
+@mixin font-dpr($font-size) {
+  font-size: $font-size;
+
+  [data-dpr="2"] & {
+    font-size: $font-size * 2;
+
+    @media all and (-webkit-device-pixel-ratio: 2) and (min-width: 1080px) {
+      font-size: $font-size * 4;
+    }
+  }
+
+  [data-dpr="3"] & {
+    font-size: $font-size * 3;
+    @media all and (-webkit-device-pixel-ratio: 3) and (min-width: 1620px) {
+      font-size: $font-size * 6;
+    }
+  }
+  @media all and (-webkit-device-pixel-ratio: 1) and (min-width: 540px) {
+    font-size: $font-size * 2;
+  }
+
+}

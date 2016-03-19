@@ -1,0 +1,15 @@
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin square($size) {
+  @include size($size, $size);
+}
+
+@mixin resizable($direction: both) {
+  // Options: horizontal, vertical, both
+  resize: $direction;
+  // Safari fix
+  overflow: auto;
+}

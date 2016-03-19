@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= title %></title>
+    <% include ../plugin/css-source.html %>
+    <!-- DataTables Responsive CSS -->
+    <link href="/sb/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <style>
+        .right-checkbox {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+            pointer-events: none;
+        }
+
+        .btn.active {
+            color: #ffffff;
+        }
+
+        .btn.active > .fa-square {
+            display: none;
+        }
+
+        .btn.active > .fa-check-square {
+            display: inline;
+        }
+
+        .btn > .fa-square {
+            display: inline;
+        }
+
+        .btn > .fa-check-square {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrapper">
+    <% include ../plugin/action.html %>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">权限管理</h3>
+                </div>
+            </div>
+            <div class="row right-list">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                        <tr>
+                            <th>权限分组</th>
+                            <th>创建人</th>
+                            <th>操作
+                                <div class="btn btn-xs btn-primary add-menu"><i class="fa fa-plus"></i></div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(var i = 0; i < list.length; i++){ %>
+                        <tr data-id="<%= list[i].id %>" data-list="<%= list[i].list %>">
+                            <td class="r-name"><%= list[i].name %></td>
+                            <td><%= list[i].createUserName %></td>
+                            <td>
+                                <div class="btn-area">
+                                    <div class="btn btn-xs btn-info btn-edit"><i class="fa fa-pencil"></i></div>
+                                    <div class="btn btn-xs btn-danger btn-del"><i class="fa fa-times"></i></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg right-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></div>
+                <h4 class="modal-title">权限信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">权限名</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control right-name">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row btn-group" data-toggle="buttons" style="display: block;">
+
+                    <% for (var i = 0; i < menu.length; i++){ %>
+                    <div class="area a">
+                        <ol class=" first-menu breadcrumb col-lg-10 col-lg-offset-1" data-id="<%= menu[i].id %>" data-name="<%= menu[i].name %>" data-uri="<%= menu[i].uri %>">
+                            <label class="btn btn-primary btn-xs btn-check" id="b_<%= menu[i].id %>">
+                                <input class="right-checkbox" type="checkbox" autocomplete="off">
+                                <li class="fa fa-square"></li>
+                                <li class="fa fa-check-square"></li>
+                            </label>
+                            <li>
+                                <%= menu[i].name %>
+                                <i class="fa fa-link"></i> <%= menu[i].uri %>
+                            </li>
+                        </ol>
+
+                        <% if(menu[i].button && menu[i].button.length > 0){
+                        for(var j = 0; j < menu[i].button.length;j++){ %>
+                        <div class="area b">
+                            <ol class="second-menu breadcrumb col-lg-9 col-lg-offset-2" data-id="<%= menu[i].button[j].id %>" data-name="<%= menu[i].button[j].name %>" data-uri="<%= menu[i].button[j].uri %>">
+                                <label class="btn btn-primary btn-xs btn-check" id="b_<%= menu[i].button[j].id %>">
+                                    <input class="right-checkbox" type="checkbox" autocomplete="off">
+                                    <li class="fa fa-square"></li>
+                                    <li class="fa fa-check-square"></li>
+                                </label>
+                                <li>
+                                    <%= menu[i].button[j].name %>
+                                    <i class="fa fa-link"></i> <%= menu[i].button[j].uri %>
+                                </li>
+                            </ol>
+
+                            <% if(menu[i].button[j].button && menu[i].button[j].button.length > 0){
+                            for(var n = 0; n < menu[i].button[j].button.length;n++){ %>
+                            <div class="area c">
+                                <ol class="breadcrumb col-lg-8 col-lg-offset-3 third-menu" data-id="<%= menu[i].button[j].button[n].id %>" data-name="<%= menu[i].button[j].button[n].name %>" data-uri="<%= menu[i].button[j].button[n].uri %>">
+                                    <label class="btn btn-primary btn-xs btn-check" id="b_<%= menu[i].button[j].button[n].id %>">
+                                        <input class="right-checkbox" type="checkbox" autocomplete="off">
+                                        <li class="fa fa-square"></li>
+                                        <li class="fa fa-check-square"></li>
+                                    </label>
+                                    <li>
+                                        <%= menu[i].button[j].button[n].name %>
+                                        <i class="fa fa-link"></i> <%= menu[i].button[j].button[n].uri %>
+                                    </li>
+                                </ol>
+                            </div>
+                            <% }} %>
+                        </div>
+                        <% }} %>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn btn-default" data-dismiss="modal">关闭</div>
+                <div class="btn btn-primary btn-commit">保存</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../plugin/js-source.html %>
+<script src="/sb/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/sb/datatables/media/js/dataTables.bootstrap.min.js"></script>
+<script>
+    $('#dataTables-example').DataTable({
+        searching: false,
+        "language": {
+            "info": "当前第 _PAGE_ 页 共 _PAGES_ 页",
+            zeroRecords: "没数据",
+            "paginate": {
+                "next": "下一页",
+                "previous": "上一页"
+            },
+            "lengthMenu": "每页显示 _MENU_ 条记录"
+        },
+        info: false,
+        ordering: false
+    });
+
+    $(".add-menu").on("click", function () {
+        while ($(".btn-check.active").length > 0) {
+            $(".btn-check.active:eq(0)").button("toggle");
+        }
+        $(".right-modal").find(".right-name").val("");
+        $(".right-modal").data("type", "add");
+        $(".right-modal").modal();
+    });
+
+    $(".right-list").find(".btn-edit").on("click", function () {
+        while ($(".btn-check.active").length > 0) {
+            $(".btn-check.active:eq(0)").button("toggle");
+        }
+        $(".right-modal").data("type", "edit");
+        $(".right-modal").data("id", $(this).parents("tr").data("id"));
+
+        var list = $(this).parents("tr").data("list");
+
+        for (var i = 0; i < list.length; i++) {
+            $("#b_" + list[i] + ":not(.active)").button("toggle");
+        }
+
+        $(".right-modal").find(".right-name").val($(this).parents("tr").find(".r-name").html());
+
+        $(".right-modal").modal();
+    });
+
+
+    $(".right-list").find(".btn-del").on("click", function () {
+        var id = $(this).parents("tr").data("id");
+        confirm("去人要删除吗?", function () {
+            doDel({
+                id: id
+            });
+        });
+    });
+    $(".right-checkbox").on("change", function () {
+        if ($(this).parents(".btn-check").hasClass("active")) {
+            var $preLevel = $(this).parents(".area:eq(1)");
+            if ($preLevel && $preLevel.length > 0) {
+                $preLevel.find(".btn-check:eq(0):not(.active)").button("toggle");
+            }
+        } else {
+            var $parent = $(this).parents(".area:eq(0)");
+            var $nextLevel = $parent.children(".area ");
+            if ($nextLevel && $nextLevel.length > 0) {
+                $nextLevel.children("ol").find(".btn-check.active").button("toggle");
+            }
+        }
+    });
+
+    $(".btn-commit").on("click", function () {
+        var $modal = $(".right-modal");
+        var id = $modal.data("id");
+        var name = $modal.find(".right-name").val();
+        var list = [];
+        var $checked = $(".btn-check.active");
+        for (var i = 0; i < $checked.length; i++) {
+            list.push($checked.eq(i).parent().data("id"))
+        }
+        switch ($modal.data("type")) {
+            case "add":
+                doAdd({
+                    name: name,
+                    list: list
+                });
+                break;
+            case "edit":
+                doEdit({
+                    id: id,
+                    name: name,
+                    list: list
+                });
+                break;
+            default:
+                break;
+        }
+    });
+
+    var doAdd = function (data) {
+        $.ajax({
+            url: "add",
+            data: data,
+            success: function (data) {
+                if (data.errno) {
+                    alert(data.errMsg);
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
+    var doEdit = function (data) {
+        $.ajax({
+            url: "edit",
+            data: data,
+            success: function (data) {
+                if (data.errno) {
+                    alert(data.errMsg);
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
+    var doDel = function (data) {
+        $.ajax({
+            url: "del",
+            data: data,
+            success: function (data) {
+                if (data.errno) {
+                    alert(data.errMsg);
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

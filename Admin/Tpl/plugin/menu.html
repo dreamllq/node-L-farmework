@@ -1,0 +1,35 @@
+<% for(var i = 0; i < menu.length; i++){ %>
+<li>
+    <a href="<%= menu[i].uri || 'javascript:;' %>">
+        <%= menu[i].name %>
+        <% if(menu[i].button.length > 0){ %>
+        <span class="fa arrow"></span>
+        <% } %>
+    </a>
+    <% if(menu[i].button.length > 0){ %>
+    <ul class="nav nav-second-level">
+        <% for(var j = 0; j < menu[i].button.length; j++){ %>
+        <li>
+            <a href="<%= menu[i].button[j].uri || 'javascript:;' %>">
+                <%= menu[i].button[j].name %>
+                <% if(menu[i].button[j].button.length > 0) { %>
+                <span class="fa arrow"></span>
+                <% } %>
+            </a>
+
+            <% if(menu[i].button[j].button.length > 0) { %>
+            <ul class="nav nav-third-level">
+
+                <% for(var n = 0; n < menu[i].button[j].button.length; n++){ %>
+                <li>
+                    <a href="<%= menu[i].button[j].button[n].uri || "javascript:;" %>"><%= menu[i].button[j].button[n].name %></a>
+                </li>
+                <% } %>
+            </ul>
+            <% } %>
+        </li>
+        <% } %>
+    </ul>
+    <% } %>
+</li>
+<% } %>

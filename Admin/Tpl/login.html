@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin</title>
+    <% include plugin/css-source.html %>
+</head>
+
+<body>
+<div id="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">请登录</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input id="username" class="form-control" placeholder="用户名" name="username" type="text" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input id="passwd" class="form-control" placeholder="密码" name="passwd" type="password" value="">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="check" name="remember" type="checkbox" value="Remember Me">记住我
+                                    </label>
+                                </div>
+                                <div id="sign" class="btn btn-lg btn-success btn-block">登录</div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include plugin/js-source.html %>
+
+<script>
+    if (window.localStorage.p != "" && window.localStorage.u != "") {
+        $("#username").val(window.localStorage.u);
+        $("#passwd").val(window.localStorage.p);
+        $("#check").attr("checked", true);
+    }
+
+    var sign = function () {
+        var dto = {
+            username: $("#username").val(),
+            passwd: $("#passwd").val()
+        }
+
+        if (dto.username == "") {
+
+            return;
+        }
+
+        if (dto.passwd == "") {
+            return;
+        }
+
+
+        if ($("#check:checked").length > 0) {
+            window.localStorage.p = dto.passwd;
+            window.localStorage.u = dto.username;
+        } else {
+            window.localStorage.p = "";
+            window.localStorage.u = "";
+        }
+
+        dto.passwd = $.md5(dto.passwd);
+
+        $.ajax({
+            url: ajaxpath + "/login",
+            type: "POST",
+            dataType: "json",
+            data: dto,
+            success: function (data) {
+                if (!data.errno) {
+                    window.location.replace(ajaxpath + "/index");
+                } else {
+                    alert("登录失败");
+                }
+            },
+            error: function () {
+                alert("网络错误");
+            }
+        })
+    }
+
+    $("#sign").on("click", function () {
+        sign();
+    });
+
+    document.onkeydown = function (event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e && e.keyCode == 27) { // 按 Esc
+            //要做的事情
+        }
+        if (e && e.keyCode == 113) { // 按 F2
+            //要做的事情
+        }
+        if (e && e.keyCode == 13) { // enter 键
+            //要做的事情
+            sign();
+        }
+    };
+</script>
+</body>
+</html>

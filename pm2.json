@@ -1,0 +1,20 @@
+{
+  "apps": [
+    {
+      "name": "index",
+      "script": "./app.js",
+      "args": [],
+      "log_date_format": "YYYY-MM-DD HH:mm:ss",
+      "min_uptime": "200s",
+      "max_memory_restart": "200M",
+      "watch": false,
+      "exec_mode": "cluster",
+      "autorestart": true,
+      "vizion": true,
+      "instances": 1,
+      "env": {
+        "NODE_PORT": 6001
+      }
+    }
+  ]
+}

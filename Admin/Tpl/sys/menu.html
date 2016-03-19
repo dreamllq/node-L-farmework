@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= title %></title>
+    <% include ../plugin/css-source.html %>
+</head>
+
+<body>
+<div id="wrapper">
+    <% include ../plugin/action.html %>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div style="height: 20px;"></div>
+            <ol class="top-menu breadcrumb col-lg-12" data-id="0">
+                菜单管理
+                <li class="pull-right btn-area">
+                    <div class="btn btn-xs btn-primary add-menu"><i class="fa fa-plus"></i></div>
+                </li>
+            </ol>
+            <% for (var i = 0; i < menuT.length; i++){ %>
+            <ol class=" first-menu breadcrumb col-lg-11 col-lg-offset-1" data-id="<%= menuT[i].id %>" data-name="<%= menuT[i].name %>" data-uri="<%= menuT[i].uri %>">
+                <li>
+                    <%= menuT[i].name %>
+                    <i class="fa fa-link"></i> <%= menuT[i].uri %>
+                </li>
+                <div class="pull-right btn-area">
+                    <div class="btn btn-xs btn-primary add-menu"><i class="fa fa-plus"></i></div>
+                    <div class="btn btn-xs btn-info edit-menu"><i class="fa fa-pencil"></i></div>
+                    <div class="btn btn-xs btn-danger del-menu"><i class="fa fa-times"></i></div>
+                </div>
+            </ol>
+
+            <% if(menuT[i].button && menuT[i].button.length > 0){
+            for(var j = 0; j < menuT[i].button.length;j++){ %>
+            <ol class="second-menu breadcrumb col-lg-10 col-lg-offset-2" data-id="<%= menuT[i].button[j].id %>" data-name="<%= menuT[i].button[j].name %>" data-uri="<%= menuT[i].button[j].uri %>">
+                <li>
+                    <%= menuT[i].button[j].name %>
+                    <i class="fa fa-link"></i> <%= menuT[i].button[j].uri %>
+                </li>
+                <div class="pull-right btn-area">
+                    <div class="btn btn-xs btn-primary add-menu"><i class="fa fa-plus"></i></div>
+                    <div class="btn btn-xs btn-info edit-menu"><i class="fa fa-pencil"></i></div>
+                    <div class="btn btn-xs btn-danger del-menu"><i class="fa fa-times"></i></div>
+                </div>
+            </ol>
+
+            <% if(menuT[i].button[j].button && menuT[i].button[j].button.length > 0){
+            for(var n = 0; n < menuT[i].button[j].button.length;n++){ %>
+            <ol class="breadcrumb col-lg-9 col-lg-offset-3 third-menu" data-id="<%= menuT[i].button[j].button[n].id %>" data-name="<%= menuT[i].button[j].button[n].name %>" data-uri="<%= menuT[i].button[j].button[n].uri %>">
+                <li>
+                    <%= menuT[i].button[j].button[n].name %>
+                    <i class="fa fa-link"></i> <%= menuT[i].button[j].button[n].uri %>
+                </li>
+                <div class="pull-right btn-area">
+                    <div class="btn btn-xs btn-info edit-menu"><i class="fa fa-pencil"></i></div>
+                    <div class="btn btn-xs btn-danger del-menu"><i class="fa fa-times"></i></div>
+                </div>
+            </ol>
+            <% }}}}} %>
+        </div>
+    </div>
+</div>
+
+<% include ../plugin/js-source.html %>
+<script type="text/html" id="menu-item">
+    <div class="modal fade menu-item" data-id="[%= id %]" data-parentid="[%= parendid %]">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></div>
+                    <h4 class="modal-title">[%= title %]</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">名字</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control name" value="[%= name %]">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">uri</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control uri" value="[%= uri %]">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn btn-default" data-dismiss="modal">Close</div>
+                    <div class="btn btn-primary save">Save changes</div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</script>
+
+<script>
+    var modalConfig = {
+        id: "",
+        parendid: "",
+        title: "",
+        name: "",
+        uri: "",
+        clear: function () {
+            this.id = "";
+            this.parendid = "";
+            this.title = "";
+            this.name = "";
+            this.uri = "";
+        }
+    }
+
+    $(".btn-area .add-menu").on("click", function () {
+        var $parent = $(this).parents("ol");
+        var title = "添加菜单"
+        if ($parent.hasClass("top-menu")) {
+
+        } else if ($parent.hasClass("first-menu")) {
+
+        } else if ($parent.hasClass("second-menu")) {
+
+        }
+
+        modalConfig.clear();
+        modalConfig.parendid = $parent.data("id");
+        modalConfig.title = title;
+        doAdd(modalConfig);
+    });
+
+
+    $(".btn-area .edit-menu").on("click", function () {
+        var $parent = $(this).parents("ol");
+        var title = "编辑菜单"
+        if ($parent.hasClass("top-menu")) {
+
+        } else if ($parent.hasClass("first-menu")) {
+
+        } else if ($parent.hasClass("second-menu")) {
+
+        }
+
+        modalConfig.clear();
+        modalConfig.id = $parent.data("id");
+        modalConfig.title = title;
+        modalConfig.name = $parent.data("name");
+        modalConfig.uri = $parent.data("uri");
+        doEdit(modalConfig);
+    });
+
+
+    $(".btn-area .del-menu").on("click", function () {
+        var $parent = $(this).parents("ol");
+        modalConfig.clear();
+        modalConfig.id = $parent.data("id");
+        doDelete(modalConfig);
+    });
+
+
+    //增加
+    var doAdd = function (options) {
+        var html = new EJS({element: "menu-item"}).render(options);
+        var $html = $(html);
+        $("body").append($html);
+        $html.modal({backdrop: false});
+        $html.on("hidden.bs.modal", function () {
+            $html.remove();
+        });
+        $html.find(".modal-footer .save").on("click", function () {
+
+            var dto = {
+                parentId: $(this).parents(".modal").data("parentid"),
+                name: $(this).parents(".modal").find("input.name").val(),
+                uri: $(this).parents(".modal").find("input.uri").val()
+            }
+
+            $.ajax({
+                url: "add",
+                data: dto,
+                success: function (d) {
+                    if (d.errno == 0)
+                        window.location.reload();
+                    else
+                        alert(d.errMsg);
+                }
+            });
+        });
+    }
+
+    //编辑
+    var doEdit = function (options) {
+        var html = new EJS({element: "menu-item"}).render(options);
+        var $html = $(html);
+        $("body").append($html);
+        $html.modal({backdrop: false});
+        $html.on("hidden.bs.modal", function () {
+            $html.remove();
+        });
+        $html.find(".modal-footer .save").on("click", function () {
+            var dto = {
+                id: $(this).parents(".modal").data("id"),
+                name: $(this).parents(".modal").find("input.name").val(),
+                uri: $(this).parents(".modal").find("input.uri").val()
+            }
+
+            $.ajax({
+                url: "edit",
+                data: dto,
+                success: function (d) {
+                    if (d.errno == 0)
+                        window.location.reload();
+                    else
+                        alert(d.errMsg);
+                }
+            });
+        });
+    }
+
+    //删除
+    var doDelete = function (options) {
+        confirm("确定要删除吗?", function () {
+            $.ajax({
+                url: "del",
+                data: {
+                    id: options.id
+                },
+                success: function (d) {
+                    if (d.errno != 0)
+                        alert(d.errMsg);
+                    else {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "framework",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "connect-redis": "*",
+    "redis": "*",
+    "hiredis": "*",
+    "html": "*",
+    "ejs": "*",
+    "morgan": "*",
+    "express-session": "*",
+    "cookie-parser": "*",
+    "urllib": "*",
+    "compression": "*",
+    "sequelize": "*",
+    "wechat-oauth": "*",
+    "wechat-api": "*",
+    "q": "*",
+    "mysql": "*",
+    "underscore": "*"
+  }
+}

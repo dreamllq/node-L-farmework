@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= title %></title>
+    <% include ../plugin/css-source.html %>
+    <!-- DataTables Responsive CSS -->
+    <link href="/sb/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div id="wrapper">
+    <% include ../plugin/action.html %>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">用户管理</h3>
+                </div>
+            </div>
+            <div class="row right-list">
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                        <tr>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>email</th>
+                            <th>手机号</th>
+                            <th>操作
+                                <div class="btn btn-xs btn-primary add-user"><i class="fa fa-plus"></i></div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <% for (var i = 0; i < user.length; i++) { %>
+                        <tr data-id="<%= user[i].id %>"
+                            data-username="<%= user[i].userName %>"
+                            data-authid="<%= user[i].authId %>"
+                            data-phone="<%= user[i].phone %>"
+                            data-email="<%= user[i].email %>"
+                            data-name="<%= user[i].name %>">
+                            <td><%= user[i].userName %></td>
+                            <td><%= user[i].name %></td>
+                            <td><%= user[i].email %></td>
+                            <td><%= user[i].phone %></td>
+                            <td>
+                                <div class="btn-area">
+                                    <div class="btn btn-xs btn-info btn-edit"><i class="fa fa-pencil"></i></div>
+                                    <div class="btn btn-xs btn-danger btn-del"><i class="fa fa-times"></i></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="user-info">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></div>
+                <h4 class="modal-title">用户信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="userName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="passWord">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">权限</label>
+                        <div class="col-sm-10">
+                            <select name="" id="authId" class="form-control">
+                                <% for(var i = 0; i < right.length; i++){ %>
+                                <option value="<%= right[i].id %>"><%= right[i].name %></option>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="email">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn btn-default" data-dismiss="modal">取消</div>
+                <div class="btn btn-primary btn-commit">保存</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../plugin/js-source.html %>
+<script src="/sb/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/sb/datatables/media/js/dataTables.bootstrap.min.js"></script>
+<script>
+    $('#dataTables-example').DataTable({
+        searching: false,
+        "language": {
+            "info": "当前第 _PAGE_ 页 共 _PAGES_ 页",
+            zeroRecords: "没数据",
+            "paginate": {
+                "next": "下一页",
+                "previous": "上一页"
+            },
+            "lengthMenu": "每页显示 _MENU_ 条记录"
+        },
+        info: false,
+        ordering: false
+    });
+
+    var clearModal = function () {
+        $("#user-info").data("id", "");
+        $("#user-info").data("type", "");
+        $("#user-info").find("#userName").val("");
+        $("#user-info").find("#passWord").val("");
+        $("#user-info").find("#name").val("");
+        $("#user-info").find("#phone").val("");
+        $("#user-info").find("#email").val("");
+    }
+
+    $(".add-user").on("click", function () {
+        clearModal();
+        $("#user-info").data("type", "add");
+        $("#user-info").modal();
+    });
+
+    $(".btn-edit").on("click", function (e) {
+        clearModal();
+        $("#user-info").data("type", "edit");
+        var $tr = $(this).parents("tr");
+        $("#user-info").data("id", $tr.data("id"));
+        $("#user-info").find("#userName").val($tr.data("username"));
+        $("#user-info").find("#name").val($tr.data("name"));
+        $("#user-info").find("#phone").val($tr.data("phone"));
+        $("#user-info").find("#email").val($tr.data("email"));
+        $("#user-info").modal();
+    });
+
+    $(".btn-del").on("click", function (e) {
+        var $tr = $(this).parents("tr");
+        var id = $tr.data("id");
+        confirm("确认要删除吗?", function () {
+            doDel({
+                id: id
+            });
+        });
+    });
+
+
+    $("#user-info .btn-commit").on("click", function (e) {
+        var id = $("#user-info").data("id");
+        var userName = $("#user-info").find("#userName").val();
+        var passWord = $("#user-info").find("#passWord").val();
+        var name = $("#user-info").find("#name").val();
+        var phone = $("#user-info").find("#phone").val();
+        var email = $("#user-info").find("#email").val();
+        var authId = $("#user-info").find("#authId").val();
+
+        var dto = {
+            id: id,
+            userName: userName,
+            name: name,
+            phone: phone,
+            email: email,
+            authId: authId
+        }
+
+        if (passWord)
+            dto.passWord = $.md5(passWord);
+
+        var type = $("#user-info").data("type");
+
+        switch (type) {
+            case "add":
+                doAdd(dto);
+                break;
+            case "edit":
+                doEdit(dto);
+                break;
+        }
+    });
+
+    var doAdd = function (data) {
+        $.ajax({
+            url: "add",
+            data: data,
+            success: function (data) {
+                if (data.errno) {
+                    alert(data.errMsg);
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
+    var doEdit = function (data) {
+        $.ajax({
+            url: "edit",
+            data: data,
+            success: function (data) {
+                if (data.errno) {
+                    alert(data.errMsg);
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
+    var doDel = function (data) {
+        $.ajax({
+            url: "del",
+            data: data,
+            success: function (data) {
+                if (data.errno) {
+                    alert(data.errMsg);
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
