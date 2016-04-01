@@ -3,9 +3,6 @@
  */
 var fs = require("fs");
 var Q = require("q");
-var oldlog = console.log;
-console.log = function () {
-};
 
 Config = function () {
     return require(__dirname + "/../Farmework/Config/common.js")
@@ -29,11 +26,17 @@ M = function (str) {
     return require(path);
 };
 
+var sequelize = Util("sequelize");
+
 var getTableDbver = function (table) {
     var defer = Q.defer();
     var dbver = M(table + ".dbver");
-    dbver.sync().then(function () {
-        dbver.max("ver").then(function (max) {
+    dbver.sync({
+        logging: false
+    }).then(function () {
+        dbver.max("ver", {
+            logging: false
+        }).then(function (max) {
             if (max) {
                 defer.resolve(max);
             } else {
@@ -91,17 +94,57 @@ var doTableVer = function (files) {
 var doTableVer1 = function (files, index, cb) {
 
     if (index < files.length) {
-        var func = require(files[index]);
-        func().then(function () {
-            oldlog(files[index] + "::complete!");
+        var sqls = fs.readFileSync(files[index], 'utf8');
+        var sql_arr = getAllSql(sqls);
+        doAllSql(sql_arr, 0, function (err) {
+            if (err) {
+                cb(err);
+            } else {
+                console.log(files[index] + "... complete.");
+                index++;
+                doTableVer1(files, index, cb);
+            }
+        });
+    } else {
+        cb(null);
+    }
+};
+
+var getAllSql = function (sqls) {
+    sqls = sqls.replace(/\n/g, "");
+    var arr = sqls.split(";");
+    var result = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] != "") {
+            result.push(arr[i] + ";")
+        }
+    }
+    return result;
+};
+
+var doAllSql = function (sql_arr, index, cb) {
+    if (index < sql_arr.length) {
+        doSQL(sql_arr[index]).then(function () {
             index++;
-            doTableVer1(files, index, cb);
+            doAllSql(sql_arr, index, cb);
         }).catch(function (err) {
             cb(err);
         });
     } else {
         cb(null);
     }
+};
+
+var doSQL = function (sql) {
+    var defer = Q.defer();
+    sequelize.query(sql, {
+        logging: false
+    }).then(function () {
+        defer.resolve();
+    }).catch(function (err) {
+        defer.reject(err);
+    });
+    return defer.promise;
 };
 
 var doAll = function (tables, index) {
@@ -117,11 +160,9 @@ var doAll = function (tables, index) {
             })
         });
     } else {
-        oldlog("complete!");
+        console.log("complete.");
+        process.exit();
     }
 };
-
-
 var tables = getTables();
-
 doAll(tables, 0);

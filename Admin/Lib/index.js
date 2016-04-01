@@ -1,6 +1,10 @@
 /**
  * Created by lvlq on 16/1/7.
  */
+
+var express = require("express");
+var router = express.Router();
+
 var midService = require("./midController");
 var loginService = require("./sys/loginController");
 var mainService = require("./sys/mainController");
@@ -9,41 +13,41 @@ var rightService = require("./sys/rightController");
 var userService = require("./sys/userController");
 var personService = require("./sys/personController");
 
-module.exports = function (app) {
 
-    //登录页
-    app.get("/login", loginService.index);
-    app.post("/login", loginService.login);
-    app.post("/logout", loginService.logout);
-    app.post("/regist", loginService.regist);
+//登录页
+router.get("/login", loginService.index);
+router.post("/login", loginService.login);
+router.post("/logout", loginService.logout);
+router.post("/regist", loginService.regist);
 
-    app.get("*", midService.main);
+router.get("*", midService.main);
 
-    //首页
-    app.get("/index", mainService.index);
+//首页
+router.get("/index", mainService.index);
 
-    //菜单管理页
-    app.get("/menu/index", menuService.index);
-    app.post("/menu/add", menuService.add);
-    app.post("/menu/del", menuService.del);
-    app.post("/menu/edit", menuService.edit);
-    app.post("/menu/get", menuService.get);
+//菜单管理页
+router.get("/menu/index", menuService.index);
+router.post("/menu/add", menuService.add);
+router.post("/menu/del", menuService.del);
+router.post("/menu/edit", menuService.edit);
+router.post("/menu/get", menuService.get);
 
 
-    //权限管理页
-    app.get("/right/index", rightService.index);
-    app.post("/right/add", rightService.add);
-    app.post("/right/edit", rightService.edit);
-    app.post("/right/del", rightService.del);
+//权限管理页
+router.get("/right/index", rightService.index);
+router.post("/right/add", rightService.add);
+router.post("/right/edit", rightService.edit);
+router.post("/right/del", rightService.del);
 
-    //用户管理页
-    app.get("/user/index", userService.index);
-    app.post("/user/add", userService.add);
-    app.post("/user/edit", userService.edit);
-    app.post("/user/del", userService.del);
+//用户管理页
+router.get("/user/index", userService.index);
+router.post("/user/add", userService.add);
+router.post("/user/edit", userService.edit);
+router.post("/user/del", userService.del);
 
-    app.get("/person/index", personService.index);
-    app.post("/person/edit", personService.edit);
-    app.get("/person/changepwd", personService.changepwd);
-    app.post("/person/changepwd", personService.change);
-};
+router.get("/person/index", personService.index);
+router.post("/person/edit", personService.edit);
+router.get("/person/changepwd", personService.changepwd);
+router.post("/person/changepwd", personService.change);
+
+module.exports = router;

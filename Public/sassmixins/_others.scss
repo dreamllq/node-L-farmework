@@ -35,3 +35,15 @@
 @function px2rem-l($px) {
   @return px2rem($px, 112.5px);
 }
+
+@function px2em($px, $base-font-size: 75px) {
+  @return $px / $base-font-size * 1em;
+}
+
+@function px2em-s($px) {
+  @return px2rem($px, 64px);
+}
+
+@function px2em-l($px) {
+  @return px2rem($px, 112.5px);
+}

@@ -10,7 +10,22 @@ var sequelize = new Sequelize(config.db_database, config.db_username, config.db_
     query: {
         raw: true
     },
-    define: {}
+    define: {
+        scopes: {
+            page: function (page, step) {
+                page = Math.floor(page);
+                step = Math.floor(step);
+                if (page < 1) {
+                    page = 1;
+                }
+                return {
+                    offset: (page - 1) * step,
+                    limit: step
+                }
+            }
+        }
+    },
+    timezone: "+08:00"
 });
 
 module.exports = sequelize;

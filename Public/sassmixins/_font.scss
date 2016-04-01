@@ -17,6 +17,7 @@
 }
 
 @mixin font-dpr($font-size) {
+  display: inline-block;
   font-size: $font-size;
 
   [data-dpr="2"] & {

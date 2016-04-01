@@ -1,6 +1,11 @@
 {
   "name": "framework",
   "version": "0.0.1",
+  "scripts": {
+    "start": "pm2 start pm2.json",
+    "reload": "pm2 reload index",
+    "logs": "pm2 logs index"
+  },
   "dependencies": {
     "express": "*",
     "body-parser": "*",
@@ -19,6 +24,7 @@
     "wechat-api": "*",
     "q": "*",
     "mysql": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "uuid": "*"
   }
 }

@@ -3,7 +3,6 @@ var app = express();
 
 app.set("views", __dirname + "/Tpl");
 app.set("name", "Weixin");
-require("../Farmework")(app);
 //do yourself ...
 
 require("./Lib")(app);

@@ -1,24 +1,21 @@
 /**
  * Created by lvlq on 16/1/7.
  */
-module.exports = function (app) {
-    app.get("/next", function (req, res) {
-        res.redirect("dayima://topic/8315377");
-    });
+var shareContentMid = require("../mid/sharecontent");
+var express = require("express");
+var router = express.Router();
+router.get("/setsession", function (req, res) {
+    req.session.a = {
+        b: 3
+    };
+    res.send("success");
+});
 
-    app.get("/", function (req, res) {
-        var User = M("User");
-        User.create({
-            firstName: "abc",
-            lastName: "123"
-        }).then(function (d) {
-            res.json({data: d});
-        }).catch(function (e) {
-            res.json({err: e});
-        });
+router.get("/getsession", function (req, res) {
+    res.json({
+        session: req.session,
+        de: req.browser
     });
+});
 
-    app.post("/", function (req, res) {
-        res.json({a: 1});
-    });
-};
+module.exports = router;
