@@ -14,11 +14,6 @@ app.set("name", "Index");
 app.use(morgan('tiny'));
 //do yourself ...
 app.use(uacheck);
-app.get("*", wxshare());
-app.get("*", function (req, res, next) {
-    res.locals.title = "123";
-    next();
-});
 app.use("/", routes);
 
 module.exports = app;

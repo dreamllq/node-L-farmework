@@ -15,4 +15,10 @@ module.exports = function (app) {
     //app.use("/jsapi/getTicket", jsapiService.getTicket);
     //app.use("/jsapi/getLatestTicket", jsapiService.getLatestTicket);
     app.get("/accesstoken", tokenService.getAccessToken);
+    app.get("/getsession", function (req, res) {
+        res.json({
+            id: req.session.id,
+            session: req.session
+        });
+    });
 };

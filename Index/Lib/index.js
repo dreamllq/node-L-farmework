@@ -4,6 +4,14 @@
 var shareContentMid = require("../mid/sharecontent");
 var express = require("express");
 var router = express.Router();
+var wxshare = require("../mid/wxshare");
+
+router.get("/*", wxshare());
+router.get("/*", function (req, res, next) {
+    res.locals.title = "123";
+    next();
+});
+
 router.get("/setsession", function (req, res) {
     req.session.a = {
         b: 3
@@ -13,8 +21,8 @@ router.get("/setsession", function (req, res) {
 
 router.get("/getsession", function (req, res) {
     res.json({
-        session: req.session,
-        de: req.browser
+        id: req.session.id,
+        session: req.session
     });
 });
 
