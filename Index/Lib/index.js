@@ -26,4 +26,8 @@ router.get("/getsession", function (req, res) {
     });
 });
 
+router.get("/index", function (req, res) {
+    res.render("index.html");
+});
+
 module.exports = router;

@@ -6,8 +6,27 @@
     <title>Title</title>
 </head>
 <body>
-
-<script src="/Public/js/zepto.1.1.6.min.js"></script>
-<% include wxshare.html %>
+<div class="user" style="display: none;">user</div>
+<div class="abc" style="display: none;">abc</div>
+<a href="#/abc">abc</a>
+<a href="#/users">users</a>
 </body>
+<script src="/Public/js/zepto.1.1.6.min.js"></script>
+<script src="/Public/js/router.min.js"></script>
+<script>
+    var router = new Router({ignorecase: false});
+    router.addRoute('#/*', function (req, next) {
+        console.log(123);
+        $(".user").hide();
+        $(".abc").hide();
+        next();
+    });
+    router.addRoute('#/users', function (req, next) {
+        $(".user").show();
+    });
+    router.addRoute('#/abc', function (req, next) {
+        $(".abc").show();
+    });
+    router.run();
+</script>
 </html>

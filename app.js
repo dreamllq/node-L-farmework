@@ -23,6 +23,7 @@ if (config.session_store) {
         });
     }
 }
+
 app.use(session({
     secret: 'qwertyuiop',
     store: sessionStore,
@@ -30,6 +31,7 @@ app.use(session({
     saveUninitialized: false,
     name: "llq_sid"
 }));
+
 app.use(Mid("sessionCheck"));
 app.use(Mid("noCache"));
 app.use("/index", require("./Index"));
