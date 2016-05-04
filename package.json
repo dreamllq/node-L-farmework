@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "pm2 start pm2.json",
-    "reload": "pm2 reload index",
-    "logs": "pm2 logs index"
+    "reload": "pm2 reload mzrq",
+    "logs": "pm2 logs mzrq"
   },
   "dependencies": {
     "express": "*",
@@ -25,6 +25,8 @@
     "q": "*",
     "mysql": "*",
     "underscore": "*",
-    "uuid": "*"
+    "uuid": "*",
+    "csv": "*",
+    "iconv-lite": "*"
   }
 }

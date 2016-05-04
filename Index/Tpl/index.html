@@ -16,7 +16,6 @@
 <script>
     var router = new Router({ignorecase: false});
     router.addRoute('#/*', function (req, next) {
-        console.log(123);
         $(".user").hide();
         $(".abc").hide();
         next();

@@ -41,9 +41,9 @@
 }
 
 @function px2em-s($px) {
-  @return px2rem($px, 64px);
+  @return px2em($px, 64px);
 }
 
 @function px2em-l($px) {
-  @return px2rem($px, 112.5px);
+  @return px2em($px, 112.5px);
 }
