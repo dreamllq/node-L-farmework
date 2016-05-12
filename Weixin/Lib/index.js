@@ -1,24 +1,11 @@
 /**
  * Created by lvlq on 16/1/7.
  */
-var oauthService = require("./oauthController");
-var jsapiService = require("./jsapiController");
-var tokenService = require("./accessTokenController");
+var oauthRouter = require("./oauthController");
+var jsapiRouter = require("./jsapiController");
+var tokenRouter = require("./accessTokenController");
 module.exports = function (app) {
-    app.get("/oauth/getUrl", oauthService.getUrl);
-    //app.use("/oauth/getUrlForWeb", oauthService.getUrlForWeb);
-    app.get("/oauth/getOauth", oauthService.getOauth);
-    app.get("/oauth/getOauthUserInfo", oauthService.getOauthUserInfo);
-
-    app.get("/jsapi/getJsConfig", jsapiService.getJsConfig);
-    //app.use("/jsapi/getCardExt", jsapiService.getCardExt);
-    //app.use("/jsapi/getTicket", jsapiService.getTicket);
-    //app.use("/jsapi/getLatestTicket", jsapiService.getLatestTicket);
-    app.get("/accesstoken", tokenService.getAccessToken);
-    app.get("/getsession", function (req, res) {
-        res.json({
-            id: req.session.id,
-            session: req.session
-        });
-    });
+    app.use("/accesstoken", tokenRouter);
+    app.use("/jsapi", jsapiRouter);
+    app.use("/oauth", oauthRouter);
 };
