@@ -12,7 +12,9 @@ module.exports = function (req, res, next) {
 
 
     res.error = function (errno, msg, e) {
-        console.log("Error: " + e.message);
+        if (e) {
+            console.log("Error: " + e.message);
+        }
         res.json({
             errno: errno,
             errMsg: msg

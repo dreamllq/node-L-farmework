@@ -22,8 +22,12 @@ var add = function (req, res) {
     var name = req.body.name;
     var list = req.body.list;
     var createUser = req.session.user.id;
-    var createUserName = req.session.user.name;
+    var createUserName = req.session.user.userName;
     var adminRight = M("admin.right");
+
+    if (!name) {
+        return res.error(10014, "权限分组名不能为空")
+    }
 
     adminRight.create({
         name: name,

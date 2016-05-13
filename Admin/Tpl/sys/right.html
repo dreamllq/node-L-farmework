@@ -218,15 +218,37 @@
     });
     $(".right-checkbox").on("change", function () {
         if ($(this).parents(".btn-check").hasClass("active")) {
-            var $preLevel = $(this).parents(".area:eq(1)");
+            var $preLevel = $(this).parents(".area").eq(0).find(".area");
             if ($preLevel && $preLevel.length > 0) {
-                $preLevel.find(".btn-check:eq(0):not(.active)").button("toggle");
+                var $activeBtns = $preLevel.find(".btn-check.active");
+                if ($activeBtns.length == 0) {
+                    $preLevel.find(".btn-check:not(.active)").button("toggle");
+                }
             }
+
+            $preLevel = $(this).parents(".area").eq(1);
+            if ($preLevel && $preLevel.length > 0) {
+                if (!$preLevel.find(".btn-check").eq(0).hasClass("active")) {
+                    console.log(1);
+                    $preLevel.find(".btn-check").eq(0).button("toggle");
+                }
+            }
+
         } else {
-            var $parent = $(this).parents(".area:eq(0)");
-            var $nextLevel = $parent.children(".area ");
+            var $parent = $(this).parents(".area").eq(0);
+            var $nextLevel = $parent.children(".area");
             if ($nextLevel && $nextLevel.length > 0) {
                 $nextLevel.children("ol").find(".btn-check.active").button("toggle");
+            }
+
+            $parent = $(this).parents(".area").eq(1);
+            if ($parent && $parent.length > 0) {
+                var $btns = $parent.find(".area").find(".btn-check.active");
+                if ($btns && $btns.length == 0) {
+                    if ($parent.find(".btn-check").eq(0).hasClass("active")) {
+                        $parent.find(".btn-check").eq(0).button("toggle");
+                    }
+                }
             }
         }
     });
