@@ -33,95 +33,59 @@ var parse = function (string) {
     else return JSON.parse(string);
 };
 
-var set = function (key, value) {
-    value = stringify(value);
-    var deferred = Q.defer();
-    createClient()
-        .then(function (client) {
-            client.set(key, value, function (err, reply) {
-                if (!!err) {
-                    deferred.reject(err);
-                } else {
-                    console.log("redis-set-%s::%s", key, value);
-                    deferred.resolve(reply);
+var commands = ['set', 'get', 'setex'];
+for (var i = 0; i < commands.length; i++) {
+    var c = commands[i];
+    module.exports[c] = (function (command) {
+
+        return function () {
+            var deferred = Q.defer();
+            var len = arguments.length;
+            var arg = arguments;
+            for (var j = 0; j < len; j++) {
+                if (typeof arguments[j] != 'string') {
+                    try {
+                        arguments[j] = stringify(arguments[j]);
+                    } catch (e) {
+                    }
                 }
-            });
-            client.quit();
-        })
-        .catch(function (err) {
-            deferred.reject(err);
-        });
+            }
 
-    return deferred.promise;
-};
+            createClient().then(function (client) {
+                var cb = function (err, reply) {
+                    try {
+                        reply = parse(reply);
+                    } catch (e) {
+                    }
 
-var get = function (key) {
-    var deferred = Q.defer();
-    createClient()
-        .then(function (client) {
-            client.get(key, function (err, reply) {
-                reply = parse(reply);
-                if (!!err) {
-                    deferred.reject(err);
-                } else {
-                    console.log("redis-get-%s::%j", key, reply);
-                    deferred.resolve(reply);
+                    if (!!err) {
+                        deferred.reject(err);
+                    } else {
+                        console.log("redis-%s-%s::%j", command, arg[0], reply);
+                        deferred.resolve(reply);
+                    }
+                };
+                switch (len) {
+                    case 0:
+                        client[command](cb);
+                        break;
+                    case 1:
+                        client[command](arg[0], cb);
+                        break;
+                    case 2:
+                        client[command](arg[0], arg[1], cb);
+                        break;
+                    case 3:
+                        client[command](arg[0], arg[1], arg[2], cb);
+                        break;
                 }
+
+                client.quit();
+            }).catch(function (err) {
+                deferred.reject(err);
             });
+            return deferred.promise;
+        }
 
-            client.quit();
-        })
-        .catch(function (err) {
-            deferred.reject(err);
-        });
-
-    return deferred.promise;
-};
-
-var setex = function (key, value, ttl) {
-    var deferred = Q.defer();
-    value = stringify(value);
-    createClient()
-        .then(function (client) {
-            client.setex(key, ttl, value, function (err) {
-                if (!!err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve();
-                }
-            });
-            client.quit();
-        })
-        .catch(function (err) {
-            deferred.reject(err);
-        });
-    return deferred.promise;
-};
-
-var getset = function (key, value) {
-    var deferred = Q.defer();
-    value = stringify(value);
-    createClient()
-        .then(function (client) {
-            client.getset(key, value, function (err, reply) {
-                reply = parse(reply);
-                if (!!err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(reply);
-                }
-            });
-            client.quit();
-        })
-        .catch(function (err) {
-            deferred.reject(err);
-        });
-    return deferred.promise;
-};
-
-module.exports = {
-    set: set,
-    get: get,
-    setex: setex,
-    getset: getset
-};
+    })(c);
+}

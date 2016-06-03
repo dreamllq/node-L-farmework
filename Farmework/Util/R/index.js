@@ -11,7 +11,8 @@ module.exports = function (key) {
             return redisClient.get(key);
         },
         setex: function (value, ttl) {
-            return redisClient.setex(key, value, ttl);
+            // return redisClient.setex(key, value, ttl);
+            return redisClient.setex(key, ttl, value);
         }
     };
 };

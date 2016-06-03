@@ -24,6 +24,7 @@ var main = function (req, res, next) {
         var adminMenu = M("admin.menu");
         var adminRight = M("admin.right");
 
+        //获取用户权限
         adminRight.find({
             where: {
                 id: req.session.user.authId
@@ -33,12 +34,15 @@ var main = function (req, res, next) {
                 return adminMenu.findAll();
             }
 
+            //获取menu列表
             return adminMenu.findAll({
                 where: {
                     id: JSON.parse(data.list)
                 }
             });
         }).then(function (data) {
+
+            //构造菜单
             var relat = {};
             var rootid = 0;
             relat[rootid] = {};

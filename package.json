@@ -27,6 +27,8 @@
     "underscore": "*",
     "uuid": "*",
     "csv": "*",
-    "iconv-lite": "*"
+    "iconv-lite": "*",
+    "waterline": "*",
+    "sails-redis": "*"
   }
 }

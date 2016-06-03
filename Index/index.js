@@ -15,5 +15,8 @@ app.use(morgan('tiny'));
 //do yourself ...
 app.use(uacheck);
 app.use("/", routes);
+app.use("/", function (req, res) {
+    res.send("404");
+});
 
 module.exports = app;

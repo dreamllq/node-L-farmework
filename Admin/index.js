@@ -18,4 +18,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.use("/", routes);
+app.use("/", function (req, res) {
+    res.send("404");
+});
 module.exports = app;
