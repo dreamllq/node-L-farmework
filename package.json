@@ -29,6 +29,7 @@
     "csv": "*",
     "iconv-lite": "*",
     "waterline": "*",
-    "sails-redis": "*"
+    "sails-redis": "*",
+    "bluebird": "*"
   }
 }
