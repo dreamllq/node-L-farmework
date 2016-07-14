@@ -1,0 +1,9 @@
+.Wdate{
+	border:#999 1px solid;
+ 	background:#fff url(../../../image/icon_date.gif) no-repeat right; padding-left:5px; height:18px; line-height:18px;
+}
+
+.WdateFmtErr{
+	font-weight:bold;
+	color:red;
+}

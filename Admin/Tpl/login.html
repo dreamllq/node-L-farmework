@@ -58,14 +58,12 @@
         }
 
         if (dto.username == "") {
-
             return;
         }
 
         if (dto.passwd == "") {
             return;
         }
-
 
         if ($("#check:checked").length > 0) {
             window.localStorage.p = dto.passwd;

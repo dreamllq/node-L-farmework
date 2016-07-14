@@ -25,6 +25,7 @@ module.exports = {
     session_store_ttl: 60 * 60,
 
     //微信设置
+    wx_local: true,
     wx_app_id: "wx8072c0c623334d0b",
     wx_app_secret: "5891403666796c6225f88b672d7e25fb",
     wx_token: "",

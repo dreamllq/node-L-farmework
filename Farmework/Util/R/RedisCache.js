@@ -6,12 +6,11 @@ var bluebird = require("bluebird");
 var redis = require("redis");
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
-var config = Config();
 
 var Redis = function () {
     var client = redis.createClient({
-        host: config.memory_host,
-        port: config.memory_port,
+        host: C.memory_host,
+        port: C.memory_port,
         no_ready_check: true,
         retry_strategy: function (options) {
             if (options.error.code === 'ECONNREFUSED') {
