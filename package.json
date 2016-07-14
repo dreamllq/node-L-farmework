@@ -30,6 +30,8 @@
     "iconv-lite": "*",
     "waterline": "*",
     "sails-redis": "*",
-    "bluebird": "*"
+    "bluebird": "*",
+    "connect-multiparty": "*",
+    "multiparty": "*"
   }
 }

@@ -50,4 +50,8 @@ router.post("/person/edit", personService.edit);
 router.get("/person/changepwd", personService.changepwd);
 router.post("/person/changepwd", personService.change);
 
+var test = require("./test/index");
+router.use("/test", test);
+router.use("/common", require("./common"));
+
 module.exports = router;

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= title %></title>
+    <% include ../plugin/css-source.html %>
+</head>
+<body>
+<div id="wrapper">
+    <% include ../plugin/action.html %>
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">用户管理</h3>
+                </div>
+            </div>
+            <input type="file" name="file" id="upload" value="上传" onChange="change()">
+        </div>
+    </div>
+</div>
+
+<% include ../plugin/js-source.html %>
+
+<script>
+    var change = function () {
+        $.ajaxFileUpload({
+            url: '/admin/common/upload',
+            secureuri: false,
+            fileElementId: "upload",
+            dataType: 'json',
+            success: function (data, status) {
+                alert(JSON.stringify(data));
+            },
+            error: function (data, status, e) {
+                alert('上传失败');
+            }
+        });
+    }
+
+    $("#abcd").on("click", function () {
+        change();
+    });
+    //    $("#upload").on('change', function () {
+    //        $.ajaxFileUpload({
+    //            url: '/admin/common/upload',
+    //            secureuri: false,
+    //            fileElementId: "upload",
+    //            dataType: 'json',
+    //            success: function (data, status) {
+    //                alert(JSON.stringify(data));
+    //            },
+    //            error: function (data, status, e) {
+    //                alert('上传失败');
+    //            }
+    //        });
+    //    });
+</script>
+</body>
+</html>

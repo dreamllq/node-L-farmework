@@ -36,6 +36,8 @@ $(function () {
         type: "POST",
         dataType: "json",
         complete: function (xhr, status) {
+            if (!xhr) return;
+            if (!xhr.getResponseHeader) return;
             switch (xhr.getResponseHeader("reject")) {
                 case "ok":
                     break;
