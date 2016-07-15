@@ -7,7 +7,7 @@
       "log_date_format": "YYYY-MM-DD HH:mm:ss",
       "min_uptime": "200s",
       "max_memory_restart": "200M",
-      "watch": true,
+      "watch": false,
       "exec_mode": "cluster",
       "autorestart": true,
       "vizion": true,
