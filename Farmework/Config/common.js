@@ -31,8 +31,19 @@ module.exports = {
     wx_token: "",
     wx_encode_aes_key: "",
     wx_name: "farmework",
-    
-    upload:{
-        path:""
+
+    upload: {
+        path: __dirname + "/../../Public/upload",
+        url_base: "/Public/upload",
+        host: "10.16.59.15",
+        port: "18080"
+    },
+
+    qiniu: {
+        access_key: 'NPGtMY48QJz8vu19E_8fSvl4g20tdmgEZuE5-N9X',
+        secret_key: 'H1ASMSC27erE19ebNaH53PNDYVHDmnsqeafiYSR-',
+        up_host: 'http://up-z1.qiniu.com',
+        bucket: 'file',
+        cdn_host: "http://cdn.xfoody.com"
     }
 };

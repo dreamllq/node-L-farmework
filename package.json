@@ -31,7 +31,8 @@
     "waterline": "*",
     "sails-redis": "*",
     "bluebird": "*",
-    "connect-multiparty": "*",
-    "multiparty": "*"
+    "multiparty": "*",
+    "images": "*",
+    "qiniu": "*"
   }
 }

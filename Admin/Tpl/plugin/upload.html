@@ -1,0 +1,68 @@
+<script type="text/html" id="t_upload_image">
+    <div class="upload-img" data-src="[%= path %]">
+        <div class="row">
+            <div class="col-xs-6 col-md-3">
+                <a href="javascript:void(0);" class="thumbnail">
+                    <img src="[%= path %]" alt="[%= name%]">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-9">
+                <div>
+                    <h4>[%= name%]</h4>
+                </div>
+                <div class="btn-group">
+                    <div class="delete btn btn-primary">删除</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var change = function (id, width, height, size, goal) {
+        var w = (width && width != 0) ? width : '';
+        var h = (height && height != 0) ? height : '';
+        var s = (size && size != 0) ? size : '';
+        var g = (goal && goal != 0) ? goal : '';
+
+        $.ajaxFileUpload({
+            url: '/admin/common/upload?width=' + w + "&height=" + h + '&size=' + s + '&goal=' + g,
+            secureuri: false,
+            fileElementId: id,
+            dataType: 'json',
+            success: function (data, status) {
+                if (data.errno) {
+                    return alert(data.error);
+                }
+
+                $("#" + id).parent().hide();
+
+                var html = '';
+
+                for (var i = 0; i < data.all.length; i++) {
+                    var img = data.all[i];
+                    var h = new EJS({element: "t_upload_image"}).render({name: img.originalFilename, path: img.path});
+                    html += h;
+                }
+
+                $("#" + id).parents(".upload-area").find(".img-list").html(html);
+                upload_delete_bind();
+            },
+            error: function (data, status, e) {
+                alert('上传失败');
+            }
+        });
+    };
+
+    var upload_delete_bind = function () {
+        $(".upload-img .delete.btn").off("click").on("click", function () {
+            var $list = $(this).parents(".img-list");
+            var $upload_area = $(this).parents(".upload-area");
+            $(this).parents(".upload-img").remove();
+
+            if ($list.find(".upload-img").length == 0) {
+                $upload_area.find(".upload_btn").show();
+            }
+        });
+    }
+</script>
