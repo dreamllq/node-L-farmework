@@ -34,6 +34,7 @@ app.use(session({
 
 app.use(Mid("sessionCheck"));
 app.use(Mid("noCache"));
+app.use(Mid("ip"));
 app.use("/index", require("./Index"));
 app.use("/admin", require("./Admin"));
 app.use("/weixin", require("./Weixin"));

@@ -51,6 +51,7 @@ router.post("/", function (req, res) {
         });
     });
 
+
     form.parse(req, function (err, fields, files) {
         for (var i = 0; i < files.file.length; i++) {
             var f = files.file[i];
@@ -79,7 +80,7 @@ router.post("/", function (req, res) {
         }
 
 
-        var all = get_local_path(files);
+        var all = get_local_path(files, req.domainName);
 
         if (goal == 'qiniu') {
             uploadFiles_qiniu(files).then(function (all) {
@@ -104,7 +105,7 @@ router.post("/", function (req, res) {
 
 module.exports = router;
 
-var get_local_path = function (files) {
+var get_local_path = function (files, domain) {
     var all = [];
     for (var i = 0; i < files.file.length; i++) {
         var f = files.file[i];
@@ -114,7 +115,8 @@ var get_local_path = function (files) {
 
         all.push({
             originalFilename: originalFilename,
-            path: 'http://' + C.upload.host + ((C.upload.port && C.upload.port != '') ? (":" + C.upload.port) : "") + C.upload.url_base + "/" + name,
+            path: C.upload.url_base + "/" + name,
+            url: domain + C.upload.url_base + "/" + name
         });
     }
 
@@ -127,7 +129,7 @@ var uploadFiles_qiniu = function (files) {
     var counts = files.file.length;
     var l = 0;
     var all = [];
-// qiniu.uploadFile(name, f.path);
+
     for (var i = 0; i < files.file.length; i++) {
         var f = files.file[i];
         var originalFilename = f.originalFilename;
@@ -139,7 +141,8 @@ var uploadFiles_qiniu = function (files) {
                 l++;
                 all.push({
                     originalFilename: n,
-                    path: url
+                    path: url,
+                    url: url
                 });
                 if (l == counts) {
                     defer.resolve(all);

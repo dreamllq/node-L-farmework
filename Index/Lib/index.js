@@ -27,6 +27,12 @@ router.get("/getsession", function (req, res) {
 });
 
 router.get("/index", function (req, res) {
+    console.log(req.ip);
+    console.log(req.port);
+    console.log(req.hostname);
+    console.log(req.protocol);
+    console.log(req.domain);
+    console.log(req.href);
     res.render("index.html");
 });
 

@@ -20,12 +20,23 @@
                     <h3 class="page-header">上传</h3>
                 </div>
             </div>
-            <div class="upload-area">
-                <div class="btn btn-default upload_btn" style="position: relative">上传
-                    <input type="file" name="file" id="upload" multiple="multiple" onChange="change('upload',0,0,0,0)" accept="image/*">
+
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="d12">图片</label>
+                        <div class="col-sm-10">
+                            <div class="upload-area">
+                                <div class="btn btn-default upload_btn">上传
+                                    <input type="file" name="file" id="upload" multiple="multiple" onChange="change('upload',0,0,0,0)" accept="image/*">
+                                </div>
+                                <div class="img-list"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="img-list"></div>
             </div>
+
 
             <div class="row">
                 <div class="col-lg-12">
@@ -34,16 +45,15 @@
             </div>
 
             <div class="row">
-                <div class="row">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="d12">datetime</label>
-                            <input class="form-control"
-                                   onclick="WdatePicker({startDate:'%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:00:00',isShowClear:false,readOnly:true})"
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="d12">datetime</label>
+                        <div class="col-sm-4">
+                            <input class="form-control date-packer"
+                                   onclick="WdatePicker({doubleCalendar:true,startDate:'%y-%M-%d 00:00:00',dateFmt:'yyyy-MM-dd HH:00:00',isShowClear:true})"
                                    id="d12" type="text" readonly/>
-                            <img src="/Public/js/My97DatePicker/skin/datePicker2.gif" width="16" height="22" align="absmiddle" onclick="d12.click()">
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -67,19 +77,24 @@
         toolbars: [
             [
                 'undo', 'redo', '|',
-                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'removeformat', 'pasteplain', '|',
+                'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', '|',
                 'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-                'directionalityltr', 'directionalityrtl', 'indent', '|',
-                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                'customstyle', 'paragraph', 'fontsize', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+                'link', 'unlink', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
                 'simpleupload', 'emotion'
             ]
         ],
-        initialFrameWidth: 750,
+//        initialFrameWidth: 750,
         autoHeightEnabled: true,
         autoFloatEnabled: false
+        //,iframeCssUrl: URL + '/themes/iframe.css' //给编辑区域的iframe引入一个css文件
     });
+    ue.ready(function () {
+        ue.execCommand('drafts');
+    });
+
 </script>
 </body>
 </html>

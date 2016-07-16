@@ -34,9 +34,7 @@ module.exports = {
 
     upload: {
         path: __dirname + "/../../Public/upload",
-        url_base: "/Public/upload",
-        host: "10.16.59.15",
-        port: "18080"
+        url_base: "/Public/upload"
     },
 
     qiniu: {

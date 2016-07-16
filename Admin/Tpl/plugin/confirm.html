@@ -30,7 +30,7 @@
             $html.remove();
         });
         $html.find(".modal-footer .save").on("click", function () {
-            cb();
+            cb && cb();
             $html.modal("hide");
         });
     }
