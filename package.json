@@ -22,6 +22,7 @@
     "sequelize": "*",
     "wechat-oauth": "*",
     "wechat-api": "*",
+    "weixin-pay": "*",
     "q": "*",
     "mysql": "*",
     "underscore": "*",
@@ -34,5 +35,23 @@
     "multiparty": "*",
     "images": "*",
     "qiniu": "*"
+  },
+  "devDependencies": {
+    "webpack": "*",
+    "css-loader": "*",
+    "style-loader": "*",
+    "gulp": "*",
+    "gulp-util": "*",
+    "gulp-sass": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-ruby-sass": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-clean-css": "*",
+    "webpack-stream": "*",
+    "gulp-uglify": "*",
+    "gulp-rename": "*",
+    "gulp-filter": "*",
+    "gulp-base64": "*",
+    "fastclick": "*"
   }
 }

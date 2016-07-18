@@ -1,29 +1,29 @@
 <script src="/Public/js/jweixin-1.0.0.js"></script>
 <script>
+    var share = <%- JSON.stringify(share) %>
     var shareData = {
-        title: "<%= share.title %>",
-        link: "<%= share.link %>",
-        imgUrl: "<%= share.img %>",
-        desc: "<%= share.desc %>"
+        title: share.title,
+        link: share.link,
+        imgUrl: share.img,
+        desc: share.desc
     }
 
     var qshareData = {
-        title: "<%= share.qtitle %>",
-        link: "<%= share.link %>",
-        imgUrl: "<%= share.img %>"
+        title: share.qtitle,
+        link: share.link,
+        imgUrl: share.img
     }
 
-    var jsApiList = [];
-    <% for(var i = 0; i < wxconfig.jsApiList.length; i++){ %>
-    jsApiList.push("<%= wxconfig.jsApiList[i] %>");
-    <% } %>
+    var wxconfig = <%- JSON.stringify(wxconfig) %>;
+
+
     wx.config({
-        debug: "<%= wxconfig.debug %>" == "true",
-        appId: "<%= wxconfig.appId %>",
-        timestamp: "<%= wxconfig.timestamp %>",
-        nonceStr: "<%= wxconfig.nonceStr %>",
-        signature: "<%= wxconfig.signature %>",
-        jsApiList: jsApiList
+        debug: wxconfig.debug == "true",
+        appId: wxconfig.appId,
+        timestamp: wxconfig.timestamp,
+        nonceStr: wxconfig.nonceStr,
+        signature: wxconfig.signature,
+        jsApiList: wxconfig.jsApiList
     });
     wx.ready(function () {
         wx.onMenuShareTimeline(shareData);

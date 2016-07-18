@@ -7,6 +7,7 @@ var router = express.Router();
 var wxshare = require("../mid/wxshare");
 
 router.get("/*", wxshare());
+router.get("/*", shareContentMid());
 router.get("/*", function (req, res, next) {
     res.locals.title = "123";
     next();
@@ -37,7 +38,7 @@ router.get("/index", function (req, res) {
 });
 
 router.get("/test", function (req, res) {
-    res.render("test.html");
+    res.render("test.html", {data: {a: 1, b: [1, 2, 3, 4]}});
 });
 
 module.exports = router;

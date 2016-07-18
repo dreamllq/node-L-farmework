@@ -10,46 +10,13 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Title</title>
 </head>
-<body ng-controller="PhoneListCtrl">
-Search: <input ng-model="query">
-Sort by:
-<select ng-model="orderProp">
-    <option value="name">Alphabetical</option>
-    <option value="age">Newest</option>
-</select>
+<body>
+<%- JSON.stringify(data) %>
 
-
-<ul class="phones">
-    <li ng-repeat="phone in phones | filter:query | orderBy:orderProp">
-        <span>{{phone.name}}</span>
-        <p>{{phone.snippet}}</p>
-    </li>
-</ul>
-
-<script src="/Public/js/angular.min.js"></script>
 <script>
-    var phonecatApp = angular.module('phonecatApp', []);
-
-    phonecatApp.controller('PhoneListCtrl', function ($scope) {
-        $scope.phones = [
-            {
-                'name': 'Nexus S',
-                'snippet': 'Fast just got faster with Nexus S.',
-                'age': 1
-            },
-            {
-                'name': 'Motorola XOOM™ with Wi-Fi',
-                'snippet': 'The Next, Next Generation tablet.',
-                'age': 2
-            },
-            {
-                'name': 'MOTOROLA XOOM™',
-                'snippet': 'The Next, Next Generation tablet.',
-                'age': 3
-            }
-        ];
-        $scope.orderProp = 'age';
-    });
+    var a = <%- JSON.stringify(data) %>;
+    console.log(a);
 </script>
+<% include common/wxshare.html %>
 </body>
 </html>
