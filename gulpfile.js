@@ -1,6 +1,6 @@
 var gulp = require("gulp");
 var gutil = require("gulp-util");
-var sass = require('gulp-sass');
+var sass = reqauire('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var cleanCSS = require('gulp-clean-css');

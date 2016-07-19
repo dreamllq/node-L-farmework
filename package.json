@@ -2,11 +2,18 @@
   "name": "framework",
   "version": "0.0.1",
   "scripts": {
-    "start": "pm2 start pm2.json",
-    "reload": "pm2 reload index",
-    "logs": "pm2 logs index"
+    "start": "node pm2.js",
+    "logs": "pm2 logs framework"
+  },
+  "pm2": {
+    "port": 6001,
+    "script": "./app.js",
+    "watch": false,
+    "max_memory_restart": "200M",
+    "instances": 1
   },
   "dependencies": {
+    "pm2": "*",
     "express": "*",
     "body-parser": "*",
     "connect-redis": "*",
@@ -44,7 +51,6 @@
     "gulp-util": "*",
     "gulp-sass": "*",
     "gulp-sourcemaps": "*",
-    "gulp-ruby-sass": "*",
     "gulp-autoprefixer": "*",
     "gulp-clean-css": "*",
     "webpack-stream": "*",

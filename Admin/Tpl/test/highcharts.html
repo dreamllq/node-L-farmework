@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin</title>
+    <% include ../plugin/css-source.html %>
+</head>
+
+<body>
+<div id="wrapper">
+    <% include ../plugin/action.html %>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">line</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="hc-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">column</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="hc-column"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">pie</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="hc-pie"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<% include ../plugin/js-source.html %>
+<script>
+    Charts.line("hc-line", ['my', 'first', 'chart'], [
+        {
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }], {title: '123'});
+
+    Charts.column("hc-column", ['my', 'first', 'chart'], [
+        {
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }], {title: '123'});
+
+    //    var charts = new Highcharts.Chart({
+    //        chart: {
+    //            type: 'line',
+    //            renderTo: "hc-line"  // 注意这里一定是 ID 选择器
+    //        },
+    //        title: {
+    //            text: 'My first Highcharts chart'      //指定图表标题
+    //        },
+    //        xAxis: {
+    //            categories: ['my', 'first', 'chart']   //指定x轴分组
+    //        },
+    //        yAxis: {
+    //            title: {
+    //                text: ''                  //指定y轴的标题
+    //            }
+    //        },
+    //        series: [{                                 //指定数据列
+    //            name: 'Jane',                          //数据列名
+    //            data: [1, 0, 4]                        //数据
+    //        }, {
+    //            name: 'John',
+    //            data: [5, 7, 3]
+    //        }],
+    //        credits: {
+    //            enabled: false
+    //        }
+    //    });
+</script>
+</body>
+</html>

@@ -8,4 +8,8 @@ router.get("/index", function (req, res) {
     res.render("test/index.html");
 });
 
+router.get("/highcharts", function (req, res) {
+    res.render("test/highcharts.html");
+});
+
 module.exports = router;

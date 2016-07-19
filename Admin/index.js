@@ -10,7 +10,6 @@ app.engine('html', require('ejs').renderFile);
 app.set("name", "Admin");
 var morgan = require('morgan');
 app.use(morgan('tiny'));
-app.use(Mid("resReturn"));
 //do yourself ...
 app.use(authCheck());
 app.use(function (req, res, next) {

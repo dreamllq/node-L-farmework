@@ -1,0 +1,37 @@
+<script>
+    var chart = function (id, xAxis, data, option, type) {
+        return new Highcharts.Chart({
+            chart: {
+                type: type || 'line',
+                renderTo: id  // 注意这里一定是 ID 选择器
+            },
+            title: {
+                text: option.title || "Hightcharts"      //指定图表标题
+            },
+            xAxis: {
+                categories: xAxis   //指定x轴分组
+            },
+            yAxis: {
+                title: {
+                    text: (option.y && option.y.title) ? option.y.title : ''                  //指定y轴的标题
+                }
+            },
+            series: data,
+            credits: {
+                enabled: false
+            }
+        });
+    }
+
+    window.Charts = {
+        line: function (id, xAxis, data, option) {
+            return chart(id, xAxis, data, option, 'line');
+        },
+        column: function (id, xAxis, data, option) {
+            return chart(id, xAxis, data, option, 'column');
+        },
+        pie: function (id, xAxis, data, option) {
+            return chart(id, xAxis, data, option, 'pie');
+        }
+    }
+</script>
