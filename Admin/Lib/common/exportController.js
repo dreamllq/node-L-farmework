@@ -13,7 +13,8 @@ router.use("/", function (req, res) {
     var name = csvData.name || "导出数据";
     name = encodeURI(name);
 
-    data.unshift(title);
+    data.unshift && data.unshift(title);
+
     res.setHeader('Content-disposition', 'attachment; filename=' + name + '.csv');
     res.writeHead(200, {'Content-Type': 'text/csv'});
 
@@ -23,4 +24,5 @@ router.use("/", function (req, res) {
         res.end();
     });
 });
+
 module.exports = router;
