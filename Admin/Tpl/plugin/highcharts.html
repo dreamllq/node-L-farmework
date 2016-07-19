@@ -3,17 +3,33 @@
         return new Highcharts.Chart({
             chart: {
                 type: type || 'line',
-                renderTo: id  // 注意这里一定是 ID 选择器
+                renderTo: id
+            },
+            exporting: {
+                filename: (option.export && option.export.filename) ? option.export.filename : 'chart',
+                buttons: {
+                    contextButton: {
+                        menuItems: [{
+                            text: '导出Excel',
+                            onclick: function () {
+                                Highcharts.post('http://export.hcharts.cn/cvs.php', {
+                                    csv: this.getCSV()
+                                });
+                            },
+                            separator: false
+                        }]
+                    }
+                }
             },
             title: {
-                text: option.title || "Hightcharts"      //指定图表标题
+                text: option.title || "Hightcharts"
             },
             xAxis: {
-                categories: xAxis   //指定x轴分组
+                categories: xAxis || []
             },
             yAxis: {
                 title: {
-                    text: (option.y && option.y.title) ? option.y.title : ''                  //指定y轴的标题
+                    text: (option.y && option.y.title) ? option.y.title : ''
                 }
             },
             series: data,
@@ -30,8 +46,8 @@
         column: function (id, xAxis, data, option) {
             return chart(id, xAxis, data, option, 'column');
         },
-        pie: function (id, xAxis, data, option) {
-            return chart(id, xAxis, data, option, 'pie');
+        pie: function (id, data, option) {
+            return chart(id, [], data, option, 'pie');
         }
     }
 </script>

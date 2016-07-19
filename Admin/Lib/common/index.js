@@ -6,4 +6,6 @@ var router = express.Router();
 
 router.use("/upload", require("./uploadController"));
 router.use("/uedit", require("./ueditController"));
+router.use("/export", require("./exportController"));
+
 module.exports = router;
