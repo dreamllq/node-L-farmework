@@ -5,6 +5,9 @@ var shareContentMid = require("../mid/sharecontent");
 var express = require("express");
 var router = express.Router();
 var wxshare = require("../mid/wxshare");
+var images = require("images");
+
+router.use("/common", require("./common"));
 
 router.get("/*", wxshare());
 router.get("/*", shareContentMid());
@@ -40,5 +43,6 @@ router.get("/index", function (req, res) {
 router.get("/test", function (req, res) {
     res.render("test.html", {data: {a: 1, b: [1, 2, 3, 4]}});
 });
+
 
 module.exports = router;
