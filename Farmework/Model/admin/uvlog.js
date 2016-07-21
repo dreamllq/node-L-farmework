@@ -14,7 +14,13 @@ module.exports = sequelize.define("admin_uvlog", {
     today_time: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: function () {
+            var date = new Date();
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            return Math.floor(date.getTime() / 1000);
+        },
         comment: "统计今日时间"
     },
     key: {
@@ -30,7 +36,13 @@ module.exports = sequelize.define("admin_uvlog", {
         }
     ],
     scopes: {
-        get: function (type_name, key, today_time) {
+        get: function (type_name, key) {
+            var date = new Date();
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            var today_time = Math.floor(date.getTime() / 1000);
+
             return {
                 where: {
                     type_name: type_name,

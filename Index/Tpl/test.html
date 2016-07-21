@@ -12,12 +12,19 @@
 </head>
 <body>
 <%- JSON.stringify(data) %>
-<img src="/index/common/count/dot" alt="">
-
+<div style="width:50px;height:50px; background-color: #000" id="click-btn"></div>
 <script>
     var a = <%- JSON.stringify(data) %>;
     console.log(a);
 </script>
+<script src="/Public/js/zepto.1.1.6.min.js"></script>
 <% include common/wxshare.html %>
+<script src="/Public/js/count_dot.js"></script>
+<script>
+    $("#click-btn").click(function () {
+        dot_count("123abc");
+        window.location.href = "http://www.baidu.com";
+    })
+</script>
 </body>
 </html>

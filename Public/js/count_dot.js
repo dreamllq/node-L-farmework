@@ -3,8 +3,8 @@
  */
 (function () {
     window.dot_count = function (type_name, uid) {
-        var src = "/admin/common/count/dot?t=" + type_name + "&u=" + uid;
-        var image = new Image();
-        image.src = src;
+        uid = uid || '';
+        var src = "/index/common/count/dot?t=" + type_name + "&u=" + uid;
+        new Image().src = src;
     };
 })();

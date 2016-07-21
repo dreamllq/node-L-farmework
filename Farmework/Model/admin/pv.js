@@ -14,7 +14,13 @@ module.exports = sequelize.define("admin_pv", {
     today_time: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: function () {
+            var date = new Date();
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            return Math.floor(date.getTime() / 1000);
+        },
         comment: "统计今日时间"
     },
     num: {

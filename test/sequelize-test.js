@@ -23,6 +23,10 @@ M = function (str) {
     return require(path);
 };
 
+var Sequelize = require("sequelize");
+
+var sequelize = Util("sequelize");
+
 // var User = M("index.user");
 // User.scope({
 //     method: ["page", 4, 10]
@@ -57,6 +61,35 @@ M = function (str) {
 // M("admin.pv").sync();
 // M("admin.uvlog").sync();
 
-M("admin.pv").scope({method: ['get30', 1]}).find().then(function (data) {
-    console.log(data);
-});
+// M("admin.pv").scope({method: ['get30', 1]}).find().then(function (data) {
+//     console.log(data);
+// });
+
+
+// var module = M("admin.pv");
+// var type_name = "ccc";
+// var date = new Date();
+// date.setHours(0);
+// date.setMinutes(0);
+// date.setSeconds(0);
+// var today_time = Math.floor(date.getTime() / 1000);
+// module.findOrCreate({
+//     where: {
+//         type_name: type_name,
+//         today_time: today_time
+//     },
+//     defaults: {
+//         type_name: type_name
+//     }
+// }).then(function () {
+//     return module.update({
+//         num: Sequelize.literal('`num`+1')
+//     }, {
+//         where: {
+//             type_name: type_name
+//         }
+//     })
+// });
+
+
+M("admin.uvlog").scope({method: ['get', "ccc", "1"]}).f;
