@@ -8,7 +8,7 @@ module.exports = {
     db_port: "13163",
     db_username: "root",
     db_password: "lvliqi1234",
-    db_database: "dln",
+    db_database: "first",
 
     //缓存设置
     memory_type: "redis",
