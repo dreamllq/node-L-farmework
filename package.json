@@ -1,6 +1,6 @@
 {
   "name": "framework",
-  "version": "2.0",
+  "version": "2.0.0",
   "scripts": {
     "start": "node pm2.js",
     "logs": "pm2 logs framework"
@@ -37,7 +37,6 @@
     "csv": "*",
     "iconv-lite": "*",
     "waterline": "*",
-    "sails-redis": "*",
     "bluebird": "*",
     "multiparty": "*",
     "images": "*",

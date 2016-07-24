@@ -1,31 +1,31 @@
 /**
  * Created by lvlq on 16/3/20.
  */
-Config = function () {
-    return require(__dirname + "/../Farmework/Config/common.js")
-};
-
-Util = function (str) {
-    var arr = str.split(".");
-    var path = "/../Farmework/Util/";
-    for (var i = 0; i < arr.length; i++) {
-        path += "/" + arr[i];
-    }
-    return require(__dirname + path);
-};
-
-M = function (str) {
-    var arr = str.split(".");
-    var path = __dirname + "/../Farmework/Model/";
-    for (var i = 0; i < arr.length; i++) {
-        path += "/" + arr[i];
-    }
-    return require(path);
-};
-
-var Sequelize = require("sequelize");
-
-var sequelize = Util("sequelize");
+// Config = function () {
+//     return require(__dirname + "/../Farmework/Config/common.js")
+// };
+//
+// Util = function (str) {
+//     var arr = str.split(".");
+//     var path = "/../Farmework/Util/";
+//     for (var i = 0; i < arr.length; i++) {
+//         path += "/" + arr[i];
+//     }
+//     return require(__dirname + path);
+// };
+//
+// M = function (str) {
+//     var arr = str.split(".");
+//     var path = __dirname + "/../Farmework/Model/";
+//     for (var i = 0; i < arr.length; i++) {
+//         path += "/" + arr[i];
+//     }
+//     return require(path);
+// };
+//
+// var Sequelize = require("sequelize");
+//
+// var sequelize = Util("sequelize");
 
 // var User = M("index.user");
 // User.scope({
@@ -92,4 +92,4 @@ var sequelize = Util("sequelize");
 // });
 
 
-M("admin.uvlog").scope({method: ['get', "ccc", "1"]}).f;
+// M("admin.uvlog").scope({method: ['get', "ccc", "1"]}).f;

@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "lvliqi1234",
+    "database": "first",
+    "port": "13163",
+    "host": "577691d22b8e8.bj.cdb.myqcloud.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "lvliqi1234",
+    "database": "first",
+    "port": "13163",
+    "host": "577691d22b8e8.bj.cdb.myqcloud.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "lvliqi1234",
+    "database": "first",
+    "port": "13163",
+    "host": "577691d22b8e8.bj.cdb.myqcloud.com",
+    "dialect": "mysql"
+  }
+}
