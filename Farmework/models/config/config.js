@@ -1,16 +1,16 @@
 /**
  * Created by lvlq on 16/7/24.
  */
-// require("../../index");
-var config = require("../../Config/common");
+require("../../index");
+// var config = require("../../Config/common");
 
 var mysql_c = {
-    "username": config.db_username,
-    "password": config.db_password,
-    "database": config.db_database,
-    "host": config.db_host,
-    "dialect": config.db_type,
-    "port": config.db_port,
+    "username": C.db_username,
+    "password": C.db_password,
+    "database": C.db_database,
+    "host": C.db_host,
+    "dialect": C.db_type,
+    "port": C.db_port,
     query: {
         raw: true
     },

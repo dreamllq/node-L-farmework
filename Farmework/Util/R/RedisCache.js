@@ -1,12 +1,11 @@
 /**
  * Created by lvliqi on 2016/7/12.
  */
-
+require('../../index');
 var bluebird = require("bluebird");
 var redis = require("redis");
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
-
 var Redis = function () {
     var client = redis.createClient({
         host: C.memory_host,
@@ -50,8 +49,8 @@ var Redis = function () {
         console.log("redis client close");
     });
 
-    client.on("warning", function () {
-        console.log("redis client warning");
+    client.on("warning", function (d) {
+        console.log("redis client warning %j", d);
     });
 
     return client;
