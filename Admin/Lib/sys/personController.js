@@ -10,7 +10,7 @@ var edit = function (req, res) {
     var email = req.body.email;
     var phone = req.body.phone;
 
-    var adminUser = M("admin.user");
+    var adminUser = Models.admin_user;
     adminUser.update({
         name: name,
         email: email,
@@ -38,7 +38,7 @@ var change = function (req, res) {
     var oldp = req.body.oldp;
     var newp = req.body.newp;
 
-    var adminUser = M("admin.user");
+    var adminUser = Models.admin_user;
 
     if (oldp == req.session.user.password) {
         adminUser.update({

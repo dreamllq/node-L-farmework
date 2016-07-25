@@ -9,7 +9,7 @@ var login = function (req, res) {
     var userName = req.body.username;
     var passWord = req.body.passwd;
 
-    var adminUser = M("admin.user");
+    var adminUser = Models.admin_user;
 
     adminUser.findOne({
         where: {
@@ -39,7 +39,7 @@ var regist = function (req, res) {
     md5.update(password);
     var d = md5.digest('hex');
 
-    var adminUser = M("admin.user");
+    var adminUser = Models.admin_user;
     adminUser.create({
         userName: "admin",
         passWord: d

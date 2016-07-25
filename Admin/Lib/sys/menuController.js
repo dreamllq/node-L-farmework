@@ -3,7 +3,7 @@
  */
 
 var index = function (req, res) {
-    var adminMenu = M("admin.menu");
+    var adminMenu = Models.admin_menu;
     adminMenu.findAll().then(function (data) {
         var relat = {};
         var rootid = 0;
@@ -42,7 +42,7 @@ var add = function (req, res) {
     var icon = req.body.icon || 0;
     var sort = req.body.sort || 0;
 
-    var adminMenu = M("admin.menu");
+    var adminMenu = Models.admin_menu;
     adminMenu.create({
         name: name,
         uri: uri,
@@ -60,7 +60,7 @@ var add = function (req, res) {
 var del = function (req, res) {
     var id = req.body.id;
 
-    var adminMenu = M("admin.menu");
+    var adminMenu = Models.admin_menu;
     adminMenu.destroy({
         where: {
             id: id
@@ -77,7 +77,7 @@ var edit = function (req, res) {
     var name = req.body.name;
     var uri = req.body.uri;
 
-    var adminMenu = M("admin.menu");
+    var adminMenu = Models.admin_menu;
 
     adminMenu.update({name: name, uri: uri}, {
         where: {
@@ -91,7 +91,7 @@ var edit = function (req, res) {
 };
 
 var get = function (req, res) {
-    var adminMenu = M("admin.menu");
+    var adminMenu = Models.admin_menu;
 
     adminMenu.findAll().then(function (data) {
         var relat = {};

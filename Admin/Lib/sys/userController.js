@@ -2,8 +2,8 @@
  * Created by lvlq on 16/1/21.
  */
 var index = function (req, res) {
-    var adminUser = M("admin.user");
-    var adminRight = M("admin.right");
+    var adminUser = Models.admin_user;
+    var adminRight = Models.admin_right;
     var renderData = {};
 
     adminRight.findAll({
@@ -48,7 +48,7 @@ var add = function (req, res) {
     var phone = req.body.phone || "";
     var name = req.body.name || "";
 
-    var adminUser = M("admin.user");
+    var adminUser = Models.admin_user;
     adminUser.create({
         userName: userName,
         passWord: passWord,
@@ -73,7 +73,7 @@ var edit = function (req, res) {
     var phone = req.body.phone || "";
     var name = req.body.name || "";
 
-    var adminUser = M("admin.user");
+    var adminUser = Models.admin_user;
     var dto = {
         userName: userName,
         authId: authId,
@@ -99,7 +99,7 @@ var edit = function (req, res) {
 var del = function (req, res) {
     var id = req.body.id;
 
-    var adminUser = M("admin.user");
+    var adminUser = Models.admin_user;
     adminUser.destroy({
         where: {
             id: id

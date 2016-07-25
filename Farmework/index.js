@@ -22,6 +22,10 @@ global.M = function (str) {
     return require(path);
 };
 
+
+// global.Models = function () {
+//
+// };
 global.Mid = function (str) {
     var arr = str.split(".");
     var path = __dirname + "/mid/";
@@ -43,3 +47,5 @@ global.WX.api = (function () {
 global.WX.oauth = (function () {
     return Util('wx.oAuth');
 })();
+
+module.exports = {};

@@ -11,9 +11,9 @@ router.get("/dot", function (req, res) {
     var type_name = req.query.t;
     var uid = req.query.u;
     uid = (uid && uid != '') ? uid : req.ip;
-    var UvLog = M("admin.uvlog");
-    var Uv = M("admin.uv");
-    var Pv = M("admin.pv");
+    var UvLog = Models.admin_uvlog;
+    var Uv = Models.admin_uv;
+    var Pv = Models.admin_pv;
     addCount(Pv, type_name).then(function () {
         return UvLog.scope({method: ['get', type_name, uid]}).find();
     }).then(function (data) {

@@ -4,6 +4,7 @@
 
 var port = process.env.NODE_PORT || 18080;
 require("./Farmework");
+global.Models = require("./Farmework/models/models");
 var express = require("express");
 var bodyParser = require('body-parser');
 var session = require('express-session');

@@ -93,3 +93,10 @@
 
 
 // M("admin.uvlog").scope({method: ['get', "ccc", "1"]}).f;
+
+var db = require("../Farmework/models/models");
+db.admin_menu.all().then(function (data) {
+    console.log(data);
+}).catch(function (err) {
+    console.log(err);
+});

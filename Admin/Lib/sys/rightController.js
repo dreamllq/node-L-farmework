@@ -2,7 +2,7 @@
  * Created by lvlq on 16/1/20.
  */
 var index = function (req, res) {
-    var adminRight = M("admin.right");
+    var adminRight = Models.admin_right;
 
     adminRight.findAll({
         where: {
@@ -23,7 +23,7 @@ var add = function (req, res) {
     var list = req.body.list;
     var createUser = req.session.user.id;
     var createUserName = req.session.user.userName;
-    var adminRight = M("admin.right");
+    var adminRight = Models.admin_right;
 
     if (!name) {
         return res.error(10014, "权限分组名不能为空")
@@ -46,7 +46,7 @@ var edit = function (req, res) {
     var id = req.body.id;
     var name = req.body.name;
     var list = req.body.list;
-    var adminRight = M("admin.right");
+    var adminRight = Models.admin_right;
     adminRight.update({
         name: name,
         list: JSON.stringify(list)
@@ -63,7 +63,7 @@ var edit = function (req, res) {
 
 var del = function (req, res) {
     var id = req.body.id;
-    var adminRight = M("admin.right");
+    var adminRight = Models.admin_right;
     adminRight.destroy({
         where: {
             id: id

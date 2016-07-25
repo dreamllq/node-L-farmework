@@ -21,8 +21,8 @@ var main = function (req, res, next) {
             return;
         }
 
-        var adminMenu = M("admin.menu");
-        var adminRight = M("admin.right");
+        var adminMenu = Models.admin_menu;
+        var adminRight = Models.admin_right;
 
         //获取用户权限
         adminRight.find({
