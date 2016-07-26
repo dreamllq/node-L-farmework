@@ -10,12 +10,8 @@ module.exports = function (req, res, next) {
         if (!res) {
             next();
             return client.setexAsync(key, 20, "1");
-        } else {
-            console.log(2);
         }
     }).done(function () {
-        console.log(1);
         client.quit();
     });
-
 };
