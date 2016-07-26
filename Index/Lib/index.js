@@ -5,7 +5,6 @@ var shareContentMid = require("../mid/sharecontent");
 var express = require("express");
 var router = express.Router();
 var wxshare = require("../mid/wxshare");
-var images = require("images");
 
 router.use("/common", require("./common"));
 
