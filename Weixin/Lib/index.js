@@ -13,6 +13,6 @@
 var express = require("express");
 var router = express.Router();
 
-router.user("/wechat", require("./wechat"));
+router.use("/wechat", require("./wechat"));
 
 module.exports = router;
