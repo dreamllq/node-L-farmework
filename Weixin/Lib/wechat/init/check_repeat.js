@@ -11,7 +11,6 @@ module.exports = function (req, res, next) {
     } else {
         key = req.weixin.FromUserName + "_" + req.weixin.CreateTime;
     }
-    
     client.getAsync(key).then(function (res) {
         if (!res) {
             next();
