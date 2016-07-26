@@ -17,9 +17,7 @@ module.exports = function (sequelize, DataTypes) {
         classMethods: {
             associate: function (models) {
                 // associations can be defined here
-            }
-        },
-        scopes: {
+            },
             get: function (type_name, key) {
                 var date = new Date();
                 date.setHours(0);
@@ -27,13 +25,19 @@ module.exports = function (sequelize, DataTypes) {
                 date.setSeconds(0);
                 var today_time = Math.floor(date.getTime() / 1000);
 
-                return {
+                this.find({
                     where: {
                         type_name: type_name,
                         today_time: today_time,
                         key: key
                     }
-                }
+                })
+            },
+            addLog: function (type_name, key) {
+                return this.create({
+                    type_name: type_name,
+                    key: key
+                })
             }
         }
     });

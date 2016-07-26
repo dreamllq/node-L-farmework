@@ -1,4 +1,7 @@
 'use strict';
+
+var Sequelize = require("sequelize");
+
 module.exports = function (sequelize, DataTypes) {
     var admin_uv = sequelize.define('admin_uv', {
         type_name: DataTypes.STRING,
@@ -17,94 +20,64 @@ module.exports = function (sequelize, DataTypes) {
         classMethods: {
             associate: function (models) {
                 // associations can be defined here
-            }
-        },
-        scopes: {
-            getOneDay: function (type_name, today_time) {
-                return {
+            },
+            getlist: function (type_name, begin, end) {
+                if (!end) end = begin;
+
+                if (!begin) {
+                    return this.findAll({
+                        where: {
+                            type_name: type_name
+                        }
+                    })
+                } else {
+                    return this.findAll({
+                        where: {
+                            type_name: type_name,
+                            today_time: {
+                                $gte: begin,
+                                $lte: end
+                            }
+                        }
+                    })
+                }
+            },
+            getListLimit: function (type_name, limit) {
+                limit = parseInt(limit);
+                var date = new Date();
+                date.setHours(0);
+                date.setMinutes(0);
+                date.setSeconds(0);
+
+                var end = Math.floor(date.getTime() / 1000);
+                var begin = end - (limit * 24 * 60 * 60);
+
+                return this.getlist(type_name, begin, end);
+            },
+            addCount: function (type_name) {
+                var model = this;
+                var date = new Date();
+                date.setHours(0);
+                date.setMinutes(0);
+                date.setSeconds(0);
+                var today_time = Math.floor(date.getTime() / 1000);
+                return model.findOrCreate({
                     where: {
                         type_name: type_name,
                         today_time: today_time
-                    }
-                }
-            },
-            getAll: function (type_name) {
-                return {
-                    where: {
+                    },
+                    defaults: {
                         type_name: type_name
                     }
-                }
-            },
-            getRange: function (type_name, begin, end) {
-                return {
-                    where: {
-                        type_name: type_name,
-                        today_time: {
-                            $gte: begin,
-                            $lte: end
+                }).then(function () {
+                    return model.update({
+                        num: Sequelize.literal('`num`+1')
+                    }, {
+                        where: {
+                            type_name: type_name
                         }
-                    }
-                }
-            },
-            get7: function (type_name) {
-                var date = new Date();
-                date.setHours(0);
-                date.setMinutes(0);
-                date.setSeconds(0);
-
-                var end = Math.floor(date.getTime() / 1000);
-                var begin = end - (7 * 24 * 60 * 60);
-
-                return {
-                    where: {
-                        type_name: type_name,
-                        today_time: {
-                            $gte: begin,
-                            $lte: end
-                        }
-                    },
-                    limit: 7
-                }
-            },
-            get15: function (type_name) {
-                var date = new Date();
-                date.setHours(0);
-                date.setMinutes(0);
-                date.setSeconds(0);
-
-                var end = date.getTime() / 1000;
-                var begin = end - (15 * 24 * 60 * 60);
-
-                return {
-                    where: {
-                        type_name: type_name,
-                        today_time: {
-                            $gte: begin,
-                            $lte: end
-                        }
-                    },
-                    limit: 15
-                }
-            },
-            get30: function (type_name) {
-                var date = new Date();
-                date.setHours(0);
-                date.setMinutes(0);
-                date.setSeconds(0);
-
-                var end = Math.floor(date.getTime() / 1000);
-                var begin = end - (30 * 24 * 60 * 60);
-
-                return {
-                    where: {
-                        type_name: type_name,
-                        today_time: {
-                            $gte: begin,
-                            $lte: end
-                        }
-                    },
-                    limit: 30
-                }
+                    })
+                });
             }
         }
     });
