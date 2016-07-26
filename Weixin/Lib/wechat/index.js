@@ -6,8 +6,8 @@ var router = express.Router();
 var wechat = require("wechat");
 
 router.use(express.query());
+router.use('/', wechat(C.wx_token, require("./init/check_repeat")));
 router.use('/', wechat(C.wx_token, require("./init/userInfo")));
-
 router.use('/', wechat(C.wx_token, wechat
     .text(require("./text"))
     .image(require("./image"))
