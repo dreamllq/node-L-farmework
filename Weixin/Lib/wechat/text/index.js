@@ -11,5 +11,6 @@ module.exports = function (message, req, res, next) {
     // MsgType: 'text',
     // Content: 'http',
     // MsgId: '5837397576500011341' }
-    console.log(1);
+
+    next();
 };

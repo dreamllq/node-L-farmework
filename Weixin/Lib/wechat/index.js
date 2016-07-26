@@ -20,5 +20,7 @@ router.use('/', wechat(C.wx_token, wechat
     .device_event(require("./device_event"))
     .middlewarify()
 ));
+router.use('/', wechat(C.wx_token, require("./init/default")));
+
 
 module.exports = router;

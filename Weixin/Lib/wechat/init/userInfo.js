@@ -4,11 +4,10 @@
 var api = Util("wx.api");
 module.exports = function (req, res, next) {
     api.getUserAsync(req.weixin.FromUserName).then(function (user) {
-        console.log(user);
         req.wx_user = user;
         next();
     }).catch(function (err) {
-        console.log(err);
+        console.error(err);
     });
     // api.getUser(req.weixin.FromUserName, function (err, result) {
     //     if (err) return console.log(err);
