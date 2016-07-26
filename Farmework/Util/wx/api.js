@@ -5,6 +5,9 @@ var WechatAPI = require('wechat-api');
 var config = Config();
 var R = Util("R");
 var urllib = require("urllib");
+var bluebird = require("bluebird");
+bluebird.promisifyAll(WechatAPI.prototype);
+
 var api = new WechatAPI(config.wx_app_id, config.wx_app_secret, function (callback) {
     R(config.wx_name + ":access_token").get()
         .then(function (token) {

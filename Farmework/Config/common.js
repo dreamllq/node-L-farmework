@@ -13,7 +13,7 @@ module.exports = {
     //缓存设置
     memory_type: "redis",
     memory_host: "127.0.0.1",
-    memory_port: "6379",
+    memory_port: "5681",
     memory_username: "",
     memory_password: "",
 
@@ -21,14 +21,14 @@ module.exports = {
     session_store: true,
     session_store_type: "redis",
     session_store_host: "127.0.0.1",
-    session_store_port: "6379",
+    session_store_port: "5681",
     session_store_ttl: 60 * 60,
 
     //微信设置
     wx_local: true,
     wx_app_id: "wx8072c0c623334d0b",
     wx_app_secret: "5891403666796c6225f88b672d7e25fb",
-    wx_token: "",
+    wx_token: "some token",
     wx_encode_aes_key: "",
     wx_name: "farmework",
 
