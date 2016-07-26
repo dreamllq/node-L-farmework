@@ -41,6 +41,7 @@
     "urllib": "^2.11.0",
     "uuid": "^2.0.2",
     "waterline": "^0.12.2",
+    "wechat": "^2.0.3",
     "wechat-api": "^1.28.0",
     "wechat-oauth": "^1.1.1",
     "wechat-pay": "^0.2.3",
