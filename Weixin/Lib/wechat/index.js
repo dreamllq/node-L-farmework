@@ -6,12 +6,9 @@ var router = express.Router();
 var wechat = require("wechat");
 
 router.use(express.query());
-router.use('/', wechat('some token', function (req, res, next) {
-    console.log(req.weixin);
-    next();
-}));
+router.use('/', wechat(C.wx_token, require("./init/userInfo")));
 
-router.use('/', wechat('some token', wechat
+router.use('/', wechat(C.wx_token, wechat
     .text(require("./text"))
     .image(require("./image"))
     .voice(require("./voice"))
@@ -23,6 +20,5 @@ router.use('/', wechat('some token', wechat
     .device_event(require("./device_event"))
     .middlewarify()
 ));
-
 
 module.exports = router;

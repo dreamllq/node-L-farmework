@@ -28,7 +28,7 @@ module.exports = {
     wx_local: true,
     wx_app_id: "wx8072c0c623334d0b",
     wx_app_secret: "5891403666796c6225f88b672d7e25fb",
-    wx_token: "",
+    wx_token: "some token",
     wx_encode_aes_key: "",
     wx_name: "farmework",
 
