@@ -12,4 +12,5 @@ module.exports = function (message, req, res, next) {
     // Longitude: '113.352425',
     // Precision: '119.385040',
     // MsgId: '5837397520665436492' }
+    next();
 }
