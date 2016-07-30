@@ -4,6 +4,7 @@
 
 var redis = Util("R.RedisCache");
 module.exports = function (req, res, next) {
+    console.log(req.weixin);
     var client = redis();
     var key;
     if (req.weixin.MsgId) {

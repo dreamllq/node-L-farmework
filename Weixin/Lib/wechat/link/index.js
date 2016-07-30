@@ -11,4 +11,6 @@ module.exports = function (message, req, res, next) {
     // Description: 'A link has its desc',
     // Url: 'http://1024.com/',
     // MsgId: '5837397520665436492' }
+
+    next();
 }

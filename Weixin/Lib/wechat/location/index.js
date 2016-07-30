@@ -12,4 +12,6 @@ module.exports = function (message, req, res, next) {
     // Scale: '15',
     // Label: {},
     // MsgId: '5837398761910985062' }
+
+    next();
 }
