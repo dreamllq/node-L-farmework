@@ -24,9 +24,9 @@ router.get("/", function (req, res) {
 
         var cb_url = base64.decode(req.query.url);
         result.oauth = 1;
+        console.log(result);
         var query = querystring.stringify(result);
         cb_url = cb_url + (cb_url.indexOf('?') > -1 ? "&" : "?") + query;
-        console.log(cb_url);
         res.redirect(cb_url);
     });
 });
