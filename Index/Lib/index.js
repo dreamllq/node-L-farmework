@@ -39,9 +39,10 @@ router.get("/index", function (req, res) {
     res.render("index.html");
 });
 
-router.get("/test", function (req, res) {
-    res.render("test.html", {data: {a: 1, b: [1, 2, 3, 4]}});
-});
+// router.get("/test", function (req, res) {
+//     res.render("test.html", {data: {a: 1, b: [1, 2, 3, 4]}});
+// });
 
+router.use("/test", require("./test"));
 
 module.exports = router;

@@ -14,5 +14,6 @@ var express = require("express");
 var router = express.Router();
 
 router.use("/wechat", require("./wechat"));
+router.use("/oauth", require("./oauth"));
 
 module.exports = router;
