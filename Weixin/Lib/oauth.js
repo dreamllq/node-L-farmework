@@ -10,7 +10,7 @@ var querystring = require("querystring");
 
 router.get("/", function (req, res) {
     var url = req.href;
-    var scope = req.query.scope == "snsapi_userinfo" ? "snsapi_userinfo" : "snsapi_base";
+    var scope = req.query.scope == "snsapi_userinfo" ? "snsapi_base" : "snsapi_base";
 
     if (!req.query.code) {
         var redirecturl = oauth.getAuthorizeURL(url, "", scope);

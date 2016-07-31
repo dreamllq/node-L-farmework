@@ -15,8 +15,6 @@ router.use("/oauth", function (req, res, next) {
 });
 
 router.use("/oauth", function (req, res) {
-
-
     res.json(req.query);
 });
 
