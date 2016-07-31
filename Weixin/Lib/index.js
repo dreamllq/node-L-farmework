@@ -15,5 +15,7 @@ var router = express.Router();
 
 router.use("/wechat", require("./wechat"));
 router.use("/oauth", require("./oauth"));
+router.use("/accessToken", require("./accessTokenController"));
+router.use("/jsapi", require("./jsapiController"));
 
 module.exports = router;
