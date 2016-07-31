@@ -3,9 +3,9 @@
  */
 var express = require("express");
 var router = express.Router();
-var base64 = require("base64");
+var base64 = Util("Func.base64");
 
-router.use("/oauth", function () {
+router.use("/oauth", function (req, res) {
     var url = req.href;
     if (!res.query.oauth) {
         var redirect = "http://weixin.xfoody.com/weixin/oauth?url=" + base64.encode(url);

@@ -45,8 +45,7 @@
     "wechat-api": "^1.28.0",
     "wechat-oauth": "^1.1.1",
     "wechat-pay": "^0.2.3",
-    "weixin-pay": "^1.1.7",
-    "base64": "^2.1.0"
+    "weixin-pay": "^1.1.7"
   },
   "repository": {
     "type": "git",

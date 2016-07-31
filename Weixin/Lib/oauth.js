@@ -3,7 +3,7 @@
  */
 var express = require("express");
 var router = express.Router();
-var base64 = require('base64');
+var base64 = Util("Func.base64");
 var oauth = Util("wx.oAuth");
 var querystring = require("querystring");
 
