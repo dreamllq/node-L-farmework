@@ -14,9 +14,7 @@ router.use('/menu', require("./sys/menuController"));
 router.use("/right", require("./sys/rightController"));
 router.use("/user", require("./sys/userController"));
 router.use("/person", require("./sys/personController"));
-
-var test = require("./test/index");
-router.use("/test", test);
+router.use("/test", require("./test"));
 router.use("/common", require("./common"));
 
 module.exports = router;
