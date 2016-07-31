@@ -26,11 +26,13 @@ router.get("*", midService.main);
 router.get("/index", mainService.index);
 
 //菜单管理页
-router.get("/menu/index", menuService.index);
-router.post("/menu/add", menuService.add);
-router.post("/menu/del", menuService.del);
-router.post("/menu/edit", menuService.edit);
-router.post("/menu/get", menuService.get);
+// router.get("/menu/index", menuService.index);
+// router.post("/menu/add", menuService.add);
+// router.post("/menu/del", menuService.del);
+// router.post("/menu/edit", menuService.edit);
+// router.post("/menu/get", menuService.get);
+
+router.use('/menu', require("./sys/menuController"));
 
 
 //权限管理页
