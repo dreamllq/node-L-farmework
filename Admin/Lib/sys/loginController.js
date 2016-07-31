@@ -1,11 +1,14 @@
 /**
  * Created by lvlq on 16/1/15.
  */
-var index = function (req, res) {
-    res.render("login.html");
-};
+var express = require("express");
+var router = express.Router();
 
-var login = function (req, res) {
+router.get("/index", function (req, res) {
+    res.render("login.html");
+});
+
+router.post("/login", function (req, res) {
     var userName = req.body.username;
     var passWord = req.body.passwd;
 
@@ -25,14 +28,14 @@ var login = function (req, res) {
     }).catch(function (e) {
         res.error(1001, "登录失败", e);
     })
-};
+});
 
-var logout = function (req, res) {
+router.post("/logout", function (req, res) {
     req.session.destroy();
     res.success();
-};
+});
 
-var regist = function (req, res) {
+router.post("/regist", function (req, res) {
     var password = "123456";
     var crypto = require('crypto');
     var md5 = crypto.createHash('md5');
@@ -48,12 +51,6 @@ var regist = function (req, res) {
             b: 1
         });
     });
-};
+});
 
-
-module.exports = {
-    index: index,
-    login: login,
-    logout: logout,
-    regist: regist
-};
+module.exports = router;

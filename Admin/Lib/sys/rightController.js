@@ -19,11 +19,7 @@ router.get("/index", function (req, res) {
     }).catch(function (e) {
         res.error(111, "", e);
     });
-})
-var index = function (req, res) {
-
-
-};
+});
 
 router.post("/add", function (req, res) {
     var name = req.body.name;
@@ -47,10 +43,6 @@ router.post("/add", function (req, res) {
         res.error(10011, "权限添加失败", e);
     });
 });
-var add = function (req, res) {
-
-
-};
 
 router.post("/edit", function (req, res) {
     var id = req.body.id;
@@ -69,10 +61,7 @@ router.post("/edit", function (req, res) {
     }).catch(function (e) {
         res.error(10012, "权限编辑失败", e);
     });
-})
-var edit = function (req, res) {
-
-};
+});
 
 router.post("/del", function (req, res) {
     var id = req.body.id;
@@ -86,18 +75,7 @@ router.post("/del", function (req, res) {
     }).catch(function (e) {
         res.error(10013, "权限删除失败", e);
     });
-})
+});
 
-var del = function (req, res) {
-
-};
-
-
-// module.exports = {
-//     index: index,
-//     add: add,
-//     edit: edit,
-//     del: del
-// };
 
 module.exports = router;

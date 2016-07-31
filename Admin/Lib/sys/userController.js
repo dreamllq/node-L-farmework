@@ -1,7 +1,10 @@
 /**
  * Created by lvlq on 16/1/21.
  */
-var index = function (req, res) {
+var express = require("express");
+var router = express.Router();
+
+router.get("/index", function (req, res) {
     var adminUser = Models.admin_user;
     var adminRight = Models.admin_right;
     var renderData = {};
@@ -37,9 +40,9 @@ var index = function (req, res) {
         renderData.user = list;
         res.render("sys/user.html", renderData);
     });
-};
+});
 
-var add = function (req, res) {
+router.post("/add", function (req, res) {
     var userName = req.body.userName;
     var passWord = req.body.passWord;
     var parentId = req.session.user.id;
@@ -62,9 +65,10 @@ var add = function (req, res) {
     }).catch(function (err) {
         res.error(10021, "用户添加失败", err);
     });
-};
+});
 
-var edit = function (req, res) {
+
+router.post("/edit", function (req, res) {
     var id = req.body.id;
     var userName = req.body.userName;
     var passWord = req.body.passWord;
@@ -94,9 +98,9 @@ var edit = function (req, res) {
     }).catch(function (err) {
         res.error("10022", "用户修改失败", err);
     })
-};
+});
 
-var del = function (req, res) {
+router.post("/del", function (req, res) {
     var id = req.body.id;
 
     var adminUser = Models.admin_user;
@@ -109,12 +113,6 @@ var del = function (req, res) {
     }).catch(function (err) {
         res.error(10023, "用户删除失败", err);
     });
-};
+});
 
-module.exports = {
-    index: index,
-    add: add,
-    edit: edit,
-    del: del
-};
-
+module.exports = router;
