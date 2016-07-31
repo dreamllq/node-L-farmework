@@ -36,10 +36,12 @@ router.use('/menu', require("./sys/menuController"));
 
 
 //权限管理页
-router.get("/right/index", rightService.index);
-router.post("/right/add", rightService.add);
-router.post("/right/edit", rightService.edit);
-router.post("/right/del", rightService.del);
+// router.get("/right/index", rightService.index);
+// router.post("/right/add", rightService.add);
+// router.post("/right/edit", rightService.edit);
+// router.post("/right/del", rightService.del);
+
+router.use("/right", require("./sys/rightController"));
 
 //用户管理页
 router.get("/user/index", userService.index);

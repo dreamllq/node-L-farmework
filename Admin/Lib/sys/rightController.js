@@ -1,7 +1,11 @@
 /**
  * Created by lvlq on 16/1/20.
  */
-var index = function (req, res) {
+
+var express = require("express");
+var router = express.Router();
+
+router.get("/index", function (req, res) {
     var adminRight = Models.admin_right;
 
     adminRight.findAll({
@@ -15,10 +19,13 @@ var index = function (req, res) {
     }).catch(function (e) {
         res.error(111, "", e);
     });
+})
+var index = function (req, res) {
+
 
 };
 
-var add = function (req, res) {
+router.post("/add", function (req, res) {
     var name = req.body.name;
     var list = req.body.list;
     var createUser = req.session.user.id;
@@ -39,10 +46,13 @@ var add = function (req, res) {
     }).catch(function (e) {
         res.error(10011, "权限添加失败", e);
     });
+});
+var add = function (req, res) {
+
 
 };
 
-var edit = function (req, res) {
+router.post("/edit", function (req, res) {
     var id = req.body.id;
     var name = req.body.name;
     var list = req.body.list;
@@ -59,9 +69,12 @@ var edit = function (req, res) {
     }).catch(function (e) {
         res.error(10012, "权限编辑失败", e);
     });
+})
+var edit = function (req, res) {
+
 };
 
-var del = function (req, res) {
+router.post("/del", function (req, res) {
     var id = req.body.id;
     var adminRight = Models.admin_right;
     adminRight.destroy({
@@ -73,12 +86,18 @@ var del = function (req, res) {
     }).catch(function (e) {
         res.error(10013, "权限删除失败", e);
     });
+})
+
+var del = function (req, res) {
+
 };
 
 
-module.exports = {
-    index: index,
-    add: add,
-    edit: edit,
-    del: del
-};
+// module.exports = {
+//     index: index,
+//     add: add,
+//     edit: edit,
+//     del: del
+// };
+
+module.exports = router;
