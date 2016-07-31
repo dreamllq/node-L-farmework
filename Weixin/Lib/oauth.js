@@ -37,6 +37,7 @@ router.get("/base", function (req, res) {
 
     if (!req.query.code) {
         var redirecturl = oauth.getAuthorizeURL(url, "", scope);
+        console.log(redirecturl);
         res.redirect(redirecturl);
         return;
     }
