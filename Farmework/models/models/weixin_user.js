@@ -85,13 +85,15 @@ module.exports = function (sequelize, DataTypes) {
                                 }
                             })
                         }
-
-
                     } else {
                         return Api.getUserAsync(openid).then(function (user_info) {
-                            return models.create(user_info).then(function () {
-                                return user_info;
-                            });
+                            if (user_info.subscribe == 1) {
+                                return models.create(user_info).then(function () {
+                                    return user_info;
+                                });
+                            } else {
+                                return null;
+                            }
                         });
                     }
                 }).then(function (u) {
