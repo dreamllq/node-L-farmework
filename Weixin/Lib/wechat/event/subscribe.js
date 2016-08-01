@@ -14,5 +14,11 @@ module.exports = function (message) {
 
     var defer = Q.defer();
 
+    Models.weixin_user.save(message.FromUserName).then(function (data) {
+        defer.resolve(JSON.stringify(data));
+    }).catch(function () {
+        defer.reject();
+    });
+
     return defer.promise;
 };
