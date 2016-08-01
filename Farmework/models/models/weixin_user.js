@@ -1,19 +1,43 @@
 'use strict';
 var Api = Util("wx.api");
 var Q = require("q");
+var base64 = Util("Func.base64");
 
 module.exports = function (sequelize, DataTypes) {
     var weixin_user = sequelize.define('weixin_user', {
         subscribe: DataTypes.INTEGER,
         openid: DataTypes.STRING,
-        nickname: DataTypes.STRING,
+        nickname: {
+            type: DataTypes.STRING,
+            set: function (val) {
+                this.setDataValue('nickname', base64.encode(val));
+            }
+        },
         sex: DataTypes.INTEGER,
         language: DataTypes.STRING,
         city: DataTypes.STRING,
         province: DataTypes.STRING,
         country: DataTypes.STRING,
         headimgurl: DataTypes.STRING,
-        subscribe_time: DataTypes.INTEGER
+        subscribe_time: DataTypes.INTEGER,
+        remark: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: ""
+        },
+        groupid: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            defaultValue: 0
+        },
+        tagid_list: {
+            type: Sequelize.TEXT,
+            allowNull: false,
+            defaultValue: "",
+            set: function (val) {
+                this.setDataValue('tagid_list', JSON.stringify(val));
+            }
+        }
     }, {
         classMethods: {
             associate: function (models) {
@@ -29,8 +53,9 @@ module.exports = function (sequelize, DataTypes) {
                     }
                 }).then(function (data) {
                     if (data) {
-                        console.log(data.updatedAt.getTime());
-                        if (new Date().getTime() - data.updatedAt.getTime() < 10 * 24 * 60 * 60 * 1000) {
+                        data.nickname = base64.decode(data.nickname);
+                        data.tagid_list = JSON.parse(data.tagid_list);
+                        if ((new Date().getTime() - data.updatedAt.getTime() < 10 * 24 * 60 * 60 * 1000) || data.subscribe == 0) {
                             return data;
                         } else {
                             return Api.getUserAsync(openid).then(function (user_info) {

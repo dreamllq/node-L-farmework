@@ -58,6 +58,21 @@ module.exports = {
                 allowNull: false,
                 defaultValue: 0
             },
+            remark: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                defaultValue: ""
+            },
+            groupid: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                defaultValue: 0
+            },
+            tagid_list: {
+                type: Sequelize.TEXT,
+                allowNull: false,
+                defaultValue: ""
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
