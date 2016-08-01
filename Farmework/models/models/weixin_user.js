@@ -21,17 +21,17 @@ module.exports = function (sequelize, DataTypes) {
         headimgurl: DataTypes.STRING,
         subscribe_time: DataTypes.INTEGER,
         remark: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             defaultValue: ""
         },
         groupid: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0
         },
         tagid_list: {
-            type: Sequelize.TEXT,
+            type: DataTypes.TEXT,
             allowNull: false,
             defaultValue: "",
             set: function (val) {
