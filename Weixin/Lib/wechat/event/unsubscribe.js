@@ -15,5 +15,15 @@ module.exports = function (message) {
 
     var defer = Q.defer();
 
+    Models.weixin_user.update({subscribe: 0}, {
+        where: {
+            openid: message.FromUserName
+        }
+    }).then(function () {
+        defer.resolve("");
+    }).catch(function () {
+        defer.resolve("");
+    });
+
     return defer.promise;
 };

@@ -12,5 +12,7 @@ module.exports = function (message) {
 
     var defer = Q.defer();
 
+    defer.resolve("");
+
     return defer.promise;
 };
