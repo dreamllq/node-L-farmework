@@ -55,19 +55,37 @@ module.exports = function (sequelize, DataTypes) {
                     if (data) {
                         data.nickname = base64.decode(data.nickname);
                         data.tagid_list = JSON.parse(data.tagid_list);
-                        if ((new Date().getTime() - data.updatedAt.getTime() < 10 * 24 * 60 * 60 * 1000) || data.subscribe == 0) {
-                            return data;
+
+                        if (data.subscribe == 1) {
+                            if ((new Date().getTime() - data.updatedAt.getTime() < 10 * 24 * 60 * 60 * 1000)) {
+                                return data;
+                            } else {
+                                return Api.getUserAsync(openid).then(function (user_info) {
+                                    return models.update(user_info, {
+                                        where: {
+                                            openid: user_info.openid
+                                        }
+                                    }).then(function () {
+                                        return user_info;
+                                    })
+                                });
+                            }
                         } else {
                             return Api.getUserAsync(openid).then(function (user_info) {
-                                return models.update(user_info, {
-                                    where: {
-                                        openid: user_info.openid
-                                    }
-                                }).then(function () {
-                                    return user_info;
-                                })
-                            });
+                                if (user_info.subscribe == 0) {
+                                    return data;
+                                } else {
+                                    return models.update(user_info, {
+                                        where: {
+                                            openid: user_info.openid
+                                        }
+                                    }).then(function () {
+                                        return user_info;
+                                    })
+                                }
+                            })
                         }
+
 
                     } else {
                         return Api.getUserAsync(openid).then(function (user_info) {
