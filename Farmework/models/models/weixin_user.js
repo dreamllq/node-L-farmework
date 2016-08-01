@@ -29,6 +29,7 @@ module.exports = function (sequelize, DataTypes) {
                     }
                 }).then(function (data) {
                     if (data) {
+                        console.log(data.updatedAt.getTime());
                         if (new Date().getTime() - data.updatedAt.getTime() < 10 * 24 * 60 * 60 * 1000) {
                             return data;
                         } else {
