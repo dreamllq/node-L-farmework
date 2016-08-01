@@ -32,7 +32,7 @@ var db = require("../Farmework/models/models");
 //     console.log(err);
 // });
 
-db.weixin.getByOpenid('ovc9ft3YzggWHq7yJtfbMpD8nBVA').then(function (u) {
+db.weixin_user.getByOpenid('ovc9ft3YzggWHq7yJtfbMpD8nBVA').then(function (u) {
     console.log(u);
 }).catch(function (err) {
     console.error(err);
