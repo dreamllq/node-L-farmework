@@ -16,9 +16,9 @@ var mysql_c = {
     },
     define: {
         scopes: {
-            page: function (page, step) {
+            page: function (page, where) {
                 page = Math.floor(page);
-                step = Math.floor(step);
+                var step = Math.floor(C.page_step);
                 if (page < 1) {
                     page = 1;
                 }
@@ -26,6 +26,62 @@ var mysql_c = {
                     offset: (page - 1) * step,
                     limit: step
                 }
+            }
+        },
+        classMethods: {
+            pageData: function (page, where) {
+                page = page || 1;
+                page = page < 1 ? 1 : page;
+                var model = this;
+
+                page = Math.floor(page);
+                var step = Math.floor(C.page_step);
+
+                return model.findAndCountAll({
+                    where: where,
+                    offset: (page - 1) * step,
+                    limit: step,
+                    order: "id desc"
+                }).then(function (result) {
+
+                    var page_list = [];
+                    var pageNowTemp = page;
+                    var pageCount = Math.ceil(result.count / C.page_step);
+
+                    if (pageCount <= 9) {
+                        for (var i = 0; i < pageCount; i++) {
+                            page_list.push(i + 1);
+                        }
+                    } else {
+                        if (pageNowTemp + 4 > pageCount) {
+                            for (var i = pageCount - 8; i <= pageCount; i++) {
+                                page_list.push(i);
+                            }
+                        } else {
+                            if (pageNowTemp <= 4) {
+                                for (var i = 1; i <= 9; i++) {
+                                    page_list.push(i);
+                                }
+                            } else {
+                                for (var i = pageNowTemp - 4; i <= pageNowTemp + 4; i++) {
+                                    page_list.push(i);
+                                }
+                            }
+                        }
+                    }
+
+                    return {
+                        list: result.rows,
+                        page: {
+                            pages: Math.ceil(result.count / C.page_step),
+                            current_page: page,
+                            step: C.page_step,
+                            count: result.count,
+                            page_list: page_list,
+                            page_index: 5
+                        }
+                    }
+                });
             }
         }
     },

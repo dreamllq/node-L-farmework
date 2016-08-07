@@ -6,7 +6,8 @@ module.exports = function () {
     return function (req, res, next) {
         var paths = [
             "/login",
-            "/regist"
+            "/regist",
+            "/common/uploadmedia"
         ];
 
         if (_.indexOf(paths, req.path) == -1) {

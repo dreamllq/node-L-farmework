@@ -7,6 +7,7 @@ var router = express.Router();
 
 var midService = require("./midController");
 
+
 router.use("/", require("./sys/loginController"));
 router.get("*", midService.main);
 router.use("/index", require("./sys/mainController"));
@@ -15,6 +16,7 @@ router.use("/right", require("./sys/rightController"));
 router.use("/user", require("./sys/userController"));
 router.use("/person", require("./sys/personController"));
 router.use("/test", require("./test"));
+router.use("/weixin", require("./weixin"));
 router.use("/common", require("./common"));
 
 module.exports = router;

@@ -40,5 +40,6 @@ app.use(Mid("resReturn"));
 app.use("/index", require("./Index"));
 app.use("/admin", require("./Admin"));
 app.use("/weixin", require("./Weixin"));
+app.use("/func", require("./Func"));
 app.listen(port);
 console.log("监听端口:" + port);

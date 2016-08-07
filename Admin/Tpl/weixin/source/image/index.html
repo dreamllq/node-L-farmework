@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin</title>
+    <% include ../../../plugin/css-source.html %>
+</head>
+
+<body>
+<div id="wrapper">
+    <% include ../../../plugin/action.html %>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">图片消息</h3>
+                </div>
+            </div>
+            <div class="row">
+                <% include ../../../plugin/page.html %>
+            </div>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <th>ID</th>
+                            <th>图片</th>
+                            <th>名字</th>
+                            <th>操作
+                                <div class="btn btn-primary add-image"><i class="fa fa-plus"></i></div>
+                            </th>
+                        </tr>
+                        <% for(var i = 0; i < list.length; i++) { %>
+                        <tr data-id="<%= list[i].id %>">
+                            <td class="col-xs-1 col-sm-1"><%= list[i].id %></td>
+                            <td class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+                                <a href="javascript:void(0);" class="thumbnail" style="margin-bottom: 0;">
+                                    <img src="<%= list[i].data %>">
+                                </a>
+                            </td>
+                            <td class="col-xs-3 col-sm-3col-md-2 col-lg-2" style="word-break: break-all;"><%= list[i].desc %></td>
+                            <td>
+                                <div class="btn btn-primary del-image"><i class="glyphicon glyphicon-minus"></i></div>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <% include ../../../plugin/page.html %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../../../plugin/js-source.html %>
+<% include add.html %>
+
+<script>
+    $(".add-image").on("click", function () {
+        $("#image-upload").modal();
+    });
+
+    $(".del-image").on("click", function () {
+        var self = this;
+        confirm("确认删除吗?", function (flag) {
+            $.ajax({
+                url: "delete",
+                type: "POST",
+                data: {
+                    id: $(self).parents("tr").data("id")
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.errno) {
+                        return alert(data.err)
+                    }
+                    window.location.reload();
+                }
+            });
+        })
+
+    });
+</script>
+</body>
+</html>

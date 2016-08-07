@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <style type="text/css">
+        #drop_area {
+            min-width: 300px;
+            min-height: 100px;
+            border: 3px dashed silver;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+    <!-- Bootstrap Core CSS -->
+    <link href="/Public/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/Public/sb/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <!-- Timeline CSS -->
+    <link href="/Public/css/timeline.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/Public/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/Public/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- DataTables Responsive CSS -->
+    <link href="/Public/sb/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container" style="margin-top: 50px;">
+    <div id="drop_area" ondragover="over(event)" ondrop="drop(event)">将图片拖拽到此区域</div>
+</div>
+<div class="container url-list">
+
+</div>
+<!-- jQuery -->
+<script src="/Public/js/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/Public/js/bootstrap.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/Public/sb/metisMenu/dist/metisMenu.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="/Public/js/sb-admin-2.js"></script>
+<script src="/Public/js/jquery.md5.js"></script>
+<script src="/Public/js/ejs_production.js"></script>
+<script src="/Public/js/ajaxfileupload.js"></script>
+<script src="/Public/js/jquery.form.js"></script>
+<script src="/Public/js/My97DatePicker/WdatePicker.js"></script>
+<script src="/Public/sb/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/Public/sb/datatables/media/js/dataTables.bootstrap.min.js"></script>
+<script src="/Public/js/uedit/ueditor.config.js"></script>
+<script src="/Public/js/uedit/ueditor.all.min.js"></script>
+<script src="/Public/js/Highcharts/js/highcharts.js"></script>
+<script src="/Public/js/Highcharts/js/exporting.js"></script>
+<script src="/Public/js/Highcharts/js/export-excel.js"></script>
+<script src="/Public/js/underscore-min.js"></script>
+<script src="//cdn.bootcss.com/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
+
+<script type="text/html" id="t-copy">
+    <div class="row" style="margin-top: 10px; line-height: 40px; background-color: #f1f1f1;">
+        <div class="col-md-8">[%= url %]</div>
+        <div class="col-md-2"> [%= name %]</div>
+        <div class="col-md-2">
+            <button class="btn btn-primary btn-sm" type="button" id="[%= id %]" data-clipboard-text='[%=url%]'>复制</button>
+            <span style="display: none; margin-left: 10px;">已复制</span>
+        </div>
+    </div>
+</script>
+<script type="text/javascript">
+    function over(e) {
+
+        e.preventDefault();
+    }
+    function drop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var form1 = new FormData();
+        for (var i = 0; i < e.dataTransfer.files.length; i++) {
+            form1.append("file", e.dataTransfer.files[i]);
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", '/admin/common/uploadmedia?size=0&goal=qiniu');
+        xhr.send(form1);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText).all;
+
+                    fillData(data);
+                }
+            }
+        }
+    }
+
+
+    var fillData = function (data) {
+        for (var i = 0; i < data.length; i++) {
+            (function (url, name) {
+                var id = "c_" + Math.floor(Math.random() * 99999);
+
+                var html = new EJS({element: "t-copy"}).render({url: url, id: id, name: name});
+                $(".url-list").append(html);
+
+                var clip = new ZeroClipboard(document.getElementById(id));
+
+                clip.on("copy", function (e) {
+                    $("#" + id).parent().find("span").show();
+                    setTimeout(function () {
+                        $("#" + id).parent().find("span").hide();
+                    }, 3e3);
+                });
+
+            })(data[i].url, data[i].originalFilename)
+        }
+    }
+</script>
+</body>
+</html>

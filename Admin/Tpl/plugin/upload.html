@@ -1,15 +1,57 @@
 <script type="text/html" id="t_upload_image">
-    <div class="upload-img" data-src="[%= path %]">
+    <div class="upload-img" data-src="[%= path %]" data-name="[%= name %]">
         <div class="row">
-            <div class="col-xs-6 col-md-3">
+            <div class="col-xs-6 col-md-6">
                 <a href="javascript:void(0);" class="thumbnail">
                     <img src="[%= path %]" alt="[%= name%]">
                 </a>
             </div>
-            <div class="col-xs-6 col-md-9">
+            <div class="col-xs-6 col-md-6">
                 <div>
                     <h4>[%= name%]</h4>
                 </div>
+                <div class="btn-group">
+                    <div class="delete btn btn-primary">删除</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="t_upload_voice">
+    <div class="upload-voice upload-block" data-src="[%= path %]" data-name="[%= name %]">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <audio src="[%= path %]" controls></audio>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-md-9">
+                <h4>[%= name%]</h4>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <div class="btn-group">
+                    <div class="delete btn btn-primary">删除</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="t_upload_video">
+    <div class="upload-video upload-block" data-src="[%= path %]" data-name="[%= name %]">
+        <div class="row">
+            <div class="col-xs-11 col-md-11">
+                <video style="width:100%;" src="[%= path %]" controls></video>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-md-9">
+                <h4>[%= name%]</h4>
+            </div>
+            <div class="col-xs-6 col-md-3">
                 <div class="btn-group">
                     <div class="delete btn btn-primary">删除</div>
                 </div>
@@ -47,22 +89,83 @@
 
                 $("#" + id).parents(".upload-area").find(".img-list").html(html);
                 upload_delete_bind();
-            },
-            error: function (data, status, e) {
-                alert('上传失败');
             }
         });
+
+
+        var upload_delete_bind = function () {
+            $(".upload-img .delete.btn").off("click").on("click", function () {
+                var $list = $(this).parents(".img-list");
+                var $upload_area = $(this).parents(".upload-area");
+                $(this).parents(".upload-img").remove();
+
+                if ($list.find(".upload-img").length == 0) {
+                    $upload_area.find(".upload_btn").show();
+                }
+            });
+        }
     };
+</script>
 
-    var upload_delete_bind = function () {
-        $(".upload-img .delete.btn").off("click").on("click", function () {
-            var $list = $(this).parents(".img-list");
-            var $upload_area = $(this).parents(".upload-area");
-            $(this).parents(".upload-img").remove();
+<script>
+    var change_media = function (id, size, goal) {
+        var s = (size && size != 0) ? size : '';
+        var g = (goal && goal != 0) ? goal : '';
+        var accept = $('#' + id).attr("accept");
+        accept = accept ? accept.split("/")[0] : '';
 
-            if ($list.find(".upload-img").length == 0) {
-                $upload_area.find(".upload_btn").show();
+        $.ajaxFileUpload({
+            url: '/admin/common/uploadmedia?size=' + s + '&goal=' + g + '&accept=' + accept,
+            secureuri: false,
+            fileElementId: id,
+            dataType: 'json',
+            success: function (data, status) {
+                if (data.errno) {
+                    return alert(data.error);
+                }
+
+                if (accept == 'audio') {
+                    $("#" + id).parent().hide();
+
+                    var html = '';
+
+                    for (var i = 0; i < data.all.length; i++) {
+                        var img = data.all[i];
+                        var h = new EJS({element: "t_upload_voice"}).render({name: img.originalFilename, path: img.path});
+                        html += h;
+                    }
+
+                    $("#" + id).parents(".upload-area").find(".media-list").html(html);
+                } else if (accept == 'video') {
+
+                    $("#" + id).parent().hide();
+
+                    var html = '';
+
+                    for (var i = 0; i < data.all.length; i++) {
+                        var img = data.all[i];
+                        var h = new EJS({element: "t_upload_video"}).render({name: img.originalFilename, path: img.path});
+                        html += h;
+                    }
+
+                    $("#" + id).parents(".upload-area").find(".media-list").html(html);
+                }
+                upload_delete_bind();
+
             }
         });
+
+
+        var upload_delete_bind = function () {
+            $(".upload-block .delete.btn").off("click").on("click", function () {
+                var $list = $(this).parents(".media-list");
+                var $upload_area = $(this).parents(".upload-area");
+                $(this).parents(".upload-block").remove();
+
+                if ($list.find(".upload-block").length == 0) {
+                    $upload_area.find(".upload_btn").show();
+                }
+            });
+        }
     }
 </script>

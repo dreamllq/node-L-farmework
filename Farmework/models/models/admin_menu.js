@@ -15,6 +15,26 @@ module.exports = function (sequelize, DataTypes) {
             all: function () {
                 console.log(1);
                 return this.findAll();
+            },
+            addMenu: function (menu, parentName) {
+                var model = this;
+                if (!parentName) {
+                    return model.create(menu);
+                } else {
+                    return model.find({
+                        where: {
+                            name: parentName
+                        }
+                    }).then(function (data) {
+                        if (data) {
+                            menu.parentId = data.id;
+
+                            return model.create(menu);
+                        } else {
+                            return null;
+                        }
+                    })
+                }
             }
         }
     });

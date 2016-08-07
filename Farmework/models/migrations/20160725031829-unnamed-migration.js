@@ -7,7 +7,7 @@ module.exports = {
             {name: "Dashboard", uri: "/admin/index"},
             {name: '系统设置'},
             {name: '权限管理', uri: '/admin/right/index', parentId: 2},
-            {name: "用户管理", uri: '/admin/user/index', parentId: 2}
+            {name: "管理员管理", uri: '/admin/user/index', parentId: 2}
         ]);
     },
 

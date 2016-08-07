@@ -43,5 +43,7 @@ module.exports = {
         up_host: 'http://up-z1.qiniu.com',
         bucket: 'file',
         cdn_host: "http://cdn.xfoody.com"
-    }
+    },
+
+    page_step: 10
 };

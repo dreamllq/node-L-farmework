@@ -1,0 +1,55 @@
+<div class="modal fade" id="video-upload">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></div>
+                <h4 class="modal-title">用户信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="d12">视频</label>
+                        <div class="col-sm-10">
+                            <div class="upload-area">
+                                <div class="btn btn-default upload_btn">上传
+                                    <input type="file" name="file" id="upload" onChange="change_media('upload',0,'qiniu')" accept="video/*"/>
+                                </div>
+                                <div class="media-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn btn-default" data-dismiss="modal">取消</div>
+                <div class="btn btn-primary btn-commit">保存</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#video-upload .btn-commit").on("click", function () {
+        var src = $("#video-upload .upload-video").eq(0).data("src");
+        var name = $("#video-upload .upload-video").eq(0).data("name");
+        if (!(src && src != '')) return alert("请上传音频");
+
+        $.ajax({
+            url: "add",
+            data: {
+                data: src,
+                desc: name
+            },
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                if (data.errno) {
+                    alert(data.errMsg);
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+</script>
+

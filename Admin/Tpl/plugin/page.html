@@ -1,0 +1,23 @@
+<nav id="page-module">
+    <ul class="pagination">
+        <li class="<% if(page.current_page - page.page_index < 1){ %> disabled <% } %>">
+            <a href="<% if(page.current_page - page.page_index < 1){ %> javascript:; <% } else { %>?page=<%= page.current_page - page.page_index %> <% } %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <% for (var i = 0; i < page.page_list.length; i++){ %>
+        <li class="<% if (page.current_page == page.page_list[i]) { %> active <% } %>">
+            <a
+                    href="<% if (page.current_page == page.page_list[i]) { %> javascript:; <% } else { %>?page=<%= page.page_list[i] %> <% } %>"
+            ><%= page.page_list[i] %></a>
+        </li>
+        <% } %>
+
+        <li class="<% if(page.current_page + page.page_index > page.pages){ %> disabled <% } %>">
+            <a href="<% if(page.current_page + page.page_index > page.pages){ %> javascript:; <% } else { %> ?page=<%= page.current_page + page.page_index %> <% } %>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+

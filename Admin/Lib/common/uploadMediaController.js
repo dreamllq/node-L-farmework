@@ -5,20 +5,19 @@ var express = require("express");
 var router = express.Router();
 var multiparty = require('multiparty');
 var util = require('util');
-var images = require("images");
 var qiniu = Util("Func.qiniu");
 var uuid = require("uuid");
 var Q = require("q");
 var fs = require("fs");
 
 router.post("/", function (req, res) {
-    var height = req.query.height;
-    var width = req.query.width;
     var size = req.query.size;//单位kb
     var goal = req.query.goal;
     if (size) {
         size = parseInt(size) * 1014;
     }
+
+    var accept = req.query.accept;
 
     var form = new multiparty.Form({
         uploadDir: C.upload.path
@@ -56,38 +55,16 @@ router.post("/", function (req, res) {
     form.parse(req, function (err, fields, files) {
         for (var i = 0; i < files.file.length; i++) {
             var f = files.file[i];
-            if (f.headers['content-type'].indexOf("image") == -1) {
-                return res.send(JSON.stringify({
-                    errno: 8001,
-                    error: "请上传图片文件"
-                }))
-            }
 
-            var w_h = images(f.path).size();
-
-            if (width && w_h.width != width) {
-                return res.send(JSON.stringify({
-                    errno: 8001,
-                    error: "尺寸错误"
-                }))
-            }
-
-            if (height && w_h.height != height) {
-                return res.send(JSON.stringify({
-                    errno: 8001,
-                    error: "尺寸错误"
-                }))
-            }
-
-            if (size && f.size > size) {
-                return res.send(JSON.stringify({
-                    errno: 8001,
-                    error: "图片过大"
-                }));
+            if (accept && accept != '') {
+                if (f.headers['content-type'].indexOf(accept) == -1) {
+                    return res.send(JSON.stringify({
+                        errno: 8001,
+                        error: "上传文件不正确"
+                    }))
+                }
             }
         }
-
-
         var all = get_local_path(files, req.domainName);
 
         if (goal == 'qiniu') {
