@@ -21,8 +21,8 @@ module.exports = function (req, res, next) {
         });
     };
 
-    res.r404 = function () {
-        res.render("error/404.html");
+    res.r404 = function (err) {
+        res.render("error/404.html", {msg: err.message});
     };
 
     next();

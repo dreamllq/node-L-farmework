@@ -90,6 +90,7 @@ var mysql_c = {
 
 var c = {
     "development": mysql_c,
+    "dev": mysql_c,
     "test": mysql_c,
     "production": mysql_c
 };

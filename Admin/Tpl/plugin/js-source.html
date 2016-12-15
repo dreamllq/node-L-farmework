@@ -44,6 +44,13 @@
             });
         });
     });
+
+    var make_href = function (url) {
+        var href = encodeURIComponent(window.location.href);
+        url += (url.indexOf("?") > -1) ? ("&from=" + href) : ("?from=" + href);
+
+        return url;
+    }
 </script>
 <% include upload.html %>
 <% include highcharts.html %>

@@ -7,6 +7,7 @@ module.exports = function (sequelize, DataTypes) {
     var weixin_user = sequelize.define('weixin_user', {
         subscribe: DataTypes.INTEGER,
         openid: DataTypes.STRING,
+        unionid: DataTypes.STRING,
         nickname: {
             type: DataTypes.STRING,
             set: function (val) {
@@ -109,6 +110,51 @@ module.exports = function (sequelize, DataTypes) {
             },
             save: function (openid) {
                 return this.getByOpenid(openid);
+            },
+            saveAndUpdateByUnionid: function (userinfo) {
+                var model = this;
+
+                return model.find({
+                    where: {
+                        unionid: userinfo.unionid
+                    }
+                }).then(function (data) {
+                    if (data) {
+                        return model.update(userinfo, {
+                            where: {
+                                id: data.id
+                            }
+                        })
+                    } else {
+                        return model.saveAndUpdateByOpenid(userinfo);
+                    }
+                });
+            },
+            saveAndUpdateByOpenid: function (userinfo) {
+                var model = this;
+
+                return model.find({
+                    where: {
+                        openid: userinfo.openid
+                    }
+                }).then(function (data) {
+                    if (data) {
+                        return model.update(userinfo, {
+                            where: {
+                                id: data.id
+                            }
+                        })
+                    } else {
+                        return model.create(userinfo);
+                    }
+                });
+            },
+            saveAndUpdate: function (userinfo) {
+                if (userinfo.unionid) {
+                    return this.saveAndUpdateByUnionid(userinfo);
+                } else {
+                    return this.saveAndUpdateByOpenid(userinfo);
+                }
             }
         }
     });

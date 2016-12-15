@@ -60,10 +60,12 @@
     </div>
 </div>
 <% include ../../../plugin/js-source.html %>
-<% include add.html %>
+<% include ../../../plugin/wx_source/add_text.html %>
 <script>
     $(".add-text").on("click", function () {
-        $("#text-save").modal();
+        window.wxController.addText.open(function () {
+            window.location.reload();
+        });
     });
 
     $(".del-text").on("click", function () {

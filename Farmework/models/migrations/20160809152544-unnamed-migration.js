@@ -17,11 +17,11 @@ module.exports = {
         // {name: "用户管理", uri: '/admin/user/index', parentId: 2}
 
         return db.admin_menu.addMenu({name: "微信管理"}).then(function () {
-            return db.admin_menu.addMenu({name: "公众号设置"}, "微信管理");
+            return db.admin_menu.addMenu({name: "公众号设置", uri: '/admin/weixin/account/index'}, "微信管理");
         }).then(function () {
             return db.admin_menu.addMenu({name: "素材管理"}, "微信管理");
         }).then(function () {
-            return db.admin_menu.addMenu({name: "用户管理"}, "微信管理");
+            return db.admin_menu.addMenu({name: "用户管理", uri: '/admin/weixin/user/index'}, "微信管理");
         }).then(function () {
             return db.admin_menu.addMenu({name: "图文消息", uri: "/admin/weixin/source/news/index"}, "素材管理");
         }).then(function () {
@@ -35,13 +35,13 @@ module.exports = {
         }).then(function () {
             return db.admin_menu.addMenu({name: "功能设置"}, "微信管理");
         }).then(function () {
-            return db.admin_menu.addMenu({name: "欢迎语设置"}, "功能设置");
+            return db.admin_menu.addMenu({name: "欢迎语设置", uri: '/admin/weixin/func/welcome/index'}, "功能设置");
         }).then(function () {
-            return db.admin_menu.addMenu({name: "默认回复"}, "功能设置");
+            return db.admin_menu.addMenu({name: "默认回复", uri: '/admin/weixin/func/default/index'}, "功能设置");
         }).then(function () {
-            return db.admin_menu.addMenu({name: "关键字回复"}, "功能设置");
+            return db.admin_menu.addMenu({name: "关键字回复", uri: '/admin/weixin/func/keyword/index'}, "功能设置");
         }).then(function () {
-            return db.admin_menu.addMenu({name: "自定义菜单"}, "功能设置");
+            return db.admin_menu.addMenu({name: "自定义菜单", uri: '/admin/weixin/func/menu/index'}, "功能设置");
         });
     },
 

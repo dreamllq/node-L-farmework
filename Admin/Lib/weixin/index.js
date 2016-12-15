@@ -5,5 +5,6 @@ var express = require("express");
 var router = express.Router();
 
 router.use("/source", require("./source"));
+router.use("/func", require("./func"));
 
 module.exports = router;

@@ -8,7 +8,7 @@ module.exports = {
     db_port: "13163",
     db_username: "root",
     db_password: "lvliqi1234",
-    db_database: "first",
+    db_database: "my",
 
     //缓存设置
     memory_type: "redis",
@@ -31,6 +31,7 @@ module.exports = {
     wx_token: "some token",
     wx_encode_aes_key: "",
     wx_name: "farmework",
+    wx_oauth_host: 'weixin.xfoody.com',
 
     upload: {
         path: __dirname + "/../../Public/upload",

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>无标题文档</title>
+    <title>静床</title>
     <style type="text/css">
         #drop_area {
             min-width: 300px;
@@ -27,8 +27,19 @@
 
 </head>
 <body>
-<div class="container" style="margin-top: 50px;">
-    <div id="drop_area" ondragover="over(event)" ondrop="drop(event)">将图片拖拽到此区域</div>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/func/static/index">静床</a></li>
+                <li><a href="#">图床</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+    <div id="drop_area" ondragover="over(event)" ondrop="drop(event)">将文件拖拽到此区域(非文件夹)</div>
 </div>
 <div class="container url-list">
 

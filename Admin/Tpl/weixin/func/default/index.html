@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin</title>
+    <% include ../../../plugin/css-source.html %>
+</head>
+
+<body>
+<div id="wrapper">
+    <% include ../../../plugin/action.html %>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">默认回复设置</h3>
+                </div>
+            </div>
+
+            <div class="btn btn-primary" id="open">open</div>
+            <div class="btn btn-primary" id="add_text">text</div>
+
+        </div>
+    </div>
+</div>
+<% include ../../../plugin/js-source.html %>
+<% include ../../../plugin/wxselect.html %>
+<script>
+    $("#open").on("click", function () {
+        wxselect.open();
+    })
+
+    $("#add_text").on("click", function () {
+        window.wxController.addText.open(function (a, b) {
+            console.log(a);
+            console.log(b);
+        });
+    })
+</script>
+</body>
+</html>

@@ -18,15 +18,17 @@ router.get("/info", function (req, res) {
         return;
     }
     oauth.getUserByCode(req.query.code, function (err, result) {
-        if (!!err) {
-            return res.send("系统错误,请联系管理员~~~");
-        }
-
         var cb_url = base64.decode(req.query.url);
-        result.oauth = 1;
-        var query = querystring.stringify(result);
-        cb_url = cb_url + (cb_url.indexOf('?') > -1 ? "&" : "?") + query;
-        res.redirect(cb_url);
+        if (!!err) {
+            return res.redirect(cb_url);
+            // return res.send("系统错误,请联系管理员~~~");
+        } else {
+            console.log(result);
+            result.oauth = 1;
+            var query = querystring.stringify(result);
+            cb_url = cb_url + (cb_url.indexOf('?') > -1 ? "&" : "?") + query;
+            res.redirect(cb_url);
+        }
     });
 });
 

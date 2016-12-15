@@ -21,12 +21,17 @@
                 </div>
             </div>
             <div class="row">
-                <a href="add" class="btn btn-primary">添加图文</a>
+                <a href="javascript:window.location.href = make_href('add');" class="btn btn-primary">添加图文</a>
             </div>
             <div class="row">
                 <% include ../../../plugin/page.html %>
             </div>
             <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 news_area">
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 news_area">
+                </div>
             </div>
 
 
@@ -38,6 +43,69 @@
 </div>
 
 <% include ../../../plugin/js-source.html %>
+
+<script type="text/html" id="t-news">
+    <div class="list-group" style="width:300px; margin: 0 auto 30px;">
+        <div class="list-group-item news-item">
+            <div style="height:148px;position:relative;overflow:hidden;background-color: #cccccc;">
+                <img alt="" style="width:100%;" src="[%= list[0].imgurl%]">
+                <div class="title"
+                     style="position:absolute; width:100%; height:25px;background-color: rgba(0,0,0,0.6);color: #fff;bottom: 0;left: 0;padding-left: 10px;">
+                    [%= list[0].title%]
+                </div>
+            </div>
+
+            <div class="desc">
+                [%= list[0].summary%]
+            </div>
+        </div>
+        [%for(var i = 1; i< list.length; i++) {%]
+        <div class="list-group-item news-item">
+            <div class="row" style="margin: 0;">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <div class="title" style="word-break: break-all;">[%= list[i].title%]</div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="height:89.33px; padding: 0;background-color: #cccccc;overflow:hidden;">
+                    <img alt="" style="width:100%;" src="[%= list[i].imgurl%]">
+                </div>
+            </div>
+        </div>
+        [%}%]
+    </div>
+</script>
+
+<script>
+    var list = <%- JSON.stringify(list) %>;
+    var newsdata = <%- JSON.stringify(newsdata) %>;
+
+    var make_news_data = function (data) {
+        var new_list = data.data.split(",");
+        var detail_list = [];
+        for (var i = 0; i < new_list.length; i++) {
+            detail_list.push(newsdata[new_list[i]]);
+        }
+
+        return detail_list;
+    }
+
+    var render_html = function (data) {
+        var html = new EJS({element: 't-news'}).render({list: data});
+
+        var $n_1 = $(".news_area").eq(0);
+        var $n_2 = $(".news_area").eq(1);
+
+        if ($n_1.height() > $n_2.height()) {
+            $n_2.append(html);
+        } else {
+            $n_1.append(html);
+        }
+    }
+
+    for (var i = 0; i < list.length; i++) {
+        var data = make_news_data(list[i]);
+        render_html(data);
+    }
+</script>
 
 </body>
 </html>

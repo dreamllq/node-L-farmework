@@ -50,4 +50,17 @@ router.post("/delete", function (req, res) {
     });
 });
 
+router.post("/list", function (req, res) {
+    Models.weixin_source.findAll({
+        where: {
+            type: source_type.VOICE
+        }
+    }).then(function (data) {
+        res.success({
+            list: data
+        });
+    }).catch(function (err) {
+        res.error(10003, '系统错误', err);
+    })
+});
 module.exports = router;

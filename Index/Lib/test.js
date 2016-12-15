@@ -11,4 +11,8 @@ router.use("/oauth", function (req, res) {
     res.json(req.query);
 });
 
+router.get("/index", function (req, res) {
+    res.render("test/index.html");
+});
+
 module.exports = router;

@@ -70,9 +70,9 @@
                         <p>标题*</p>
                         <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control title">
                         <p>作者</p>
-                        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control">
+                        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control author">
                         <p>封面图片(900*500)*</p>
-                        <div class="row">
+                        <div class="row imgurl">
                             <div class="col-sm-12">
                                 <div class="upload-area">
                                     <div class="btn btn-default upload_btn">上传
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <p>摘要</p>
-                        <textarea rows="4" class="desc col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control"
+                        <textarea rows="4" class="desc col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control summary"
                                   style="resize: none;"
                         ></textarea>
                         <p>正文</p>
@@ -91,13 +91,13 @@
                             <div id="container"></div>
                         </div>
                         <p>外链</p>
-                        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control">
+                        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control link">
                     </div>
                 </div>
             </div>
 
-            <div class="row" style="text-align: center">
-                <div class="btn btn-primary">保存</div>
+            <div class="row" style="text-align: center;margin-top: 30px;padding-top: 30px;border-top: 1px solid #eeeeee;">
+                <div class="btn btn-primary btn-save" id="btn-save">保存</div>
             </div>
 
             <div class="row" style="height:50px;"></div>
@@ -132,9 +132,9 @@
         <p>标题*</p>
         <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control title">
         <p>作者</p>
-        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control">
+        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control author">
         <p>封面图片(200*200)*</p>
-        <div class="row">
+        <div class="row imgurl">
             <div class="col-sm-12">
                 <div class="upload-area">
                     <div class="btn btn-default upload_btn">上传
@@ -145,7 +145,7 @@
             </div>
         </div>
         <p>摘要</p>
-        <textarea rows="4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control"
+        <textarea rows="4" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control summary"
                   style="resize: none;"
         ></textarea>
         <p>正文</p>
@@ -153,7 +153,7 @@
             <div id="[%= ue_id %]"></div>
         </div>
         <p>外链</p>
-        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control">
+        <input type="text" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-control link">
     </div>
 </script>
 
@@ -277,12 +277,11 @@
     bind_mouse_out();
     bind_news_delete_btn();
     bind_news_edit_btn();
-    initUEdit('container');
+    page_data["1"] = page_data['1'] || {};
+    page_data['1'].ue = initUEdit('container');
     bind_little_onchange();
     bind_zy_change();
-
 </script>
-
 <script>
     var change = function (id, width, height, size, goal) {
         var w = (width && width != 0) ? width : '';
@@ -342,6 +341,59 @@
             });
         }
     };
+</script>
+
+<script>
+    var get_news_data = function () {
+        var data = [];
+        var $news = $(".news-item");
+
+        for (var i = 0; i < $news.length; i++) {
+            var $tip_new = $news.eq(i);
+            var tip_id = $tip_new.attr("id");
+            var id = tip_id.split("_")[1];
+            var detail_id = "detail_" + id;
+            var $detail_new = $("#" + detail_id);
+
+            var title = $detail_new.find(".title").val();
+            var author = $detail_new.find(".author").val();
+            var summary = $detail_new.find(".summary").val();
+            var link = $detail_new.find(".link").val();
+            var imgurl = $detail_new.find(".imgurl img").eq(0).attr("src");
+            var html = page_data[id].ue.getContent();
+
+            data.push({
+                title: title,
+                author: author,
+                summary: summary,
+                link: link,
+                imgurl: imgurl,
+                html: html
+            });
+
+        }
+        return data;
+    };
+
+    $("#btn-save").on("click", function () {
+        var data = get_news_data();
+
+        $.ajax({
+            url: "add",
+            type: "POST",
+            data: {
+                news: data
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.errno) {
+                    alert("失败");
+                } else {
+                    window.location.href = 'index';
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>

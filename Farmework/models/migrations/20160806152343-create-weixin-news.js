@@ -13,7 +13,12 @@ module.exports = {
                 allowNull: false,
                 defaultValue: ''
             },
-            desc: {
+            author: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                defaultValue: ''
+            },
+            summary: {
                 type: Sequelize.STRING,
                 allowNull: false,
                 defaultValue: ''
@@ -23,13 +28,18 @@ module.exports = {
                 allowNull: false,
                 defaultValue: ''
             },
-            url: {
+            link: {
                 type: Sequelize.STRING,
                 allowNull: false,
                 defaultValue: ''
             },
             html: {
                 type: Sequelize.TEXT,
+                allowNull: false,
+                defaultValue: ''
+            },
+            uuid: {
+                type: Sequelize.STRING,
                 allowNull: false,
                 defaultValue: ''
             },

@@ -5,9 +5,8 @@ var shareContentMid = require("../mid/sharecontent");
 var express = require("express");
 var router = express.Router();
 var wxshare = require("../mid/wxshare");
-
+router.get('/*', require("../mid/wxfilter"));
 router.use("/common", require("./common"));
-
 router.get("/*", wxshare());
 router.get("/*", shareContentMid());
 router.get("/*", function (req, res, next) {
@@ -44,5 +43,11 @@ router.get("/index", function (req, res) {
 // });
 
 router.use("/test", require("./test"));
+router.use("/oauth", require("../mid/oauth"));
+router.get("/oauth", function (req, res) {
+    res.json({a: 1});
+});
+
+router.use("/map", require("./map"));
 
 module.exports = router;

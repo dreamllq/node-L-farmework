@@ -1,23 +1,55 @@
 <nav id="page-module">
     <ul class="pagination">
         <li class="<% if(page.current_page - page.page_index < 1){ %> disabled <% } %>">
-            <a href="<% if(page.current_page - page.page_index < 1){ %> javascript:; <% } else { %>?page=<%= page.current_page - page.page_index %> <% } %>" aria-label="Previous">
+            <a href="<% if(page.current_page - page.page_index < 1){ %> javascript:; <% } else { %>javascript:make_page_href(<%= page.current_page - page.page_index %> )<% } %>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         <% for (var i = 0; i < page.page_list.length; i++){ %>
         <li class="<% if (page.current_page == page.page_list[i]) { %> active <% } %>">
             <a
-                    href="<% if (page.current_page == page.page_list[i]) { %> javascript:; <% } else { %>?page=<%= page.page_list[i] %> <% } %>"
+                    href="<% if (page.current_page == page.page_list[i]) { %> javascript:; <% } else { %>javascript:make_page_href(<%= page.page_list[i] %>) <% } %>"
             ><%= page.page_list[i] %></a>
         </li>
         <% } %>
 
         <li class="<% if(page.current_page + page.page_index > page.pages){ %> disabled <% } %>">
-            <a href="<% if(page.current_page + page.page_index > page.pages){ %> javascript:; <% } else { %> ?page=<%= page.current_page + page.page_index %> <% } %>" aria-label="Next">
+            <a href="<% if(page.current_page + page.page_index > page.pages){ %> javascript:; <% } else { %> javascript:make_page_href(<%= page.current_page + page.page_index %>) <% } %>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
+
     </ul>
+    <span style="display: inline-block;height: 34px;vertical-align: 32px;line-height: 34px;">共 <%= page.count %> 条数据</span>
 </nav>
 
+
+<script>
+    make_page_href = function (page) {
+        var params_str = window.location.href.split("?")[1];
+        params_str = params_str || "";
+        var params = params_str.split('&');
+
+        var p = {};
+
+        for (var i = 0; i < params.length; i++) {
+            if (params.indexOf('=') > -1) {
+                var k = params.split("=")[0];
+                var v = params.split("=")[1];
+                p[k] = v;
+            }
+        }
+        p.page = page;
+
+        var str_arr = [];
+        for (var k in p) {
+            str_arr.push(k + '=' + p[k]);
+        }
+
+        var str = str_arr.join('=');
+
+        window.location.href = '?' + str;
+
+
+    }
+</script>
